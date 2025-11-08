@@ -1,0 +1,15 @@
+{
+  "ftbquests.task.ftbqaa.astages": "AStages任务",
+  "ftbquests.task.ftbqaa.astages.isServer": "是否为世界阶段",
+  "ftbquests.reward.ftbqaa.astages": "AStages奖励",
+  "ftbquests.reward.ftbqaa.astages.isServer": "是否为世界阶段",
+  "ftbquests.reward.ftbqaa.astages.remove": "是否移除",
+  "itemfilters.help_text.durability": "最大耐久度过滤器",
+  "item.ftbqaa.durability": "最大耐久度过滤器",
+  "itemfilters.help_text.tcon_tool_modifier": "<Modifier> (>= || > || < || <= || ==) <int>",
+  "item.ftbqaa.tcon_tool_modifier": "匠魂修饰过滤器",
+  "itemfilters.help_text.tcon_tool_material": "<Material>;[partSlot1,partSlot2...]  如果没有partSlot，则任一配件采用材料即符合；如果有，则必须槽位均为对应材料",
+  "item.ftbqaa.tcon_tool_material": "匠魂材料过滤器",
+  "itemfilters.help_text.tcon_tool_stats": "<Stats> (>= || > || < || <= || ==) <float>",
+  "item.ftbqaa.tcon_tool_stats": "匠魂属性过滤器"
+}

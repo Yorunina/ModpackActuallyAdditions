@@ -1,0 +1,15 @@
+{
+  "ftbquests.task.ftbqaa.astages": "AStages Task",
+  "ftbquests.task.ftbqaa.astages.isServer": "Server Stage",
+  "ftbquests.reward.ftbqaa.astages": "AStages Reward",
+  "ftbquests.reward.ftbqaa.astages.remove": "Remove",
+  "ftbquests.reward.ftbqaa.astages.isServer": "Server Stage",
+  "itemfilters.help_text.durability": "Durability Item Filter",
+  "item.ftbqaa.durability": "Durability Item Filter",
+  "itemfilters.help_text.tcon_tool_modifier": "<Modifier> (>= || > || < || <= || ==) <level>",
+  "item.ftbqaa.tcon_tool_modifier": "Tcon Tool Modifier Filter",
+  "itemfilters.help_text.tcon_tool_material": "<Material>;[partSlot1,partSlot2,...] If partSlots are omitted, any part with the material will match. If specified, all listed part slots must be of that material.",
+  "item.ftbqaa.tcon_tool_material": "Tcon Material Filter",
+  "itemfilters.help_text.tcon_tool_stats": "<Stats> (>= || > || < || <= || ==) <float>",
+  "item.ftbqaa.tcon_tool_stats": "Tcon Stats Filter"
+}
