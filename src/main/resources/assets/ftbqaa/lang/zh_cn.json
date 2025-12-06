@@ -14,7 +14,7 @@
   "item.ftbqaa.tcon_tool_material": "匠魂材料过滤器",
   "itemfilters.help_text.tcon_tool_stats": "<Stats> (>= || > || < || <= || ==) <float>",
   "item.ftbqaa.tcon_tool_stats": "匠魂属性过滤器",
-  "itemfilters.help_text.exposure_photo_entity": "<EntityID> (>= || > || < || <= || ==) <Distance>; <EntityID2> (>= || > || < || <= || ==) <Distance>; ...",
+  "itemfilters.help_text.exposure_photo_entity": "<EntityID> (>= || > || < || <= || ==) <Count>; <EntityID2> (>= || > || < || <= || ==) <Count2>; ...",
   "item.ftbqaa.exposure_photo_entity": "照片实体过滤器",
   "itemfilters.help_text.exposure_photo_structure": "<Structure> ; <Structure2> ; ...",
   "item.ftbqaa.exposure_photo_structure": "照片结构过滤器"

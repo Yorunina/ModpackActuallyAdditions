@@ -14,7 +14,7 @@
   "item.ftbqaa.tcon_tool_material": "Tcon Material Filter",
   "itemfilters.help_text.tcon_tool_stats": "<Stats> (>= || > || < || <= || ==) <float>",
   "item.ftbqaa.tcon_tool_stats": "Tcon Stats Filter",
-  "itemfilters.help_text.exposure_photo_entity": "<EntityID> (>= || > || < || <= || ==) <Distance>; <EntityID2> (>= || > || < || <= || ==) <Distance>; ...",
+  "itemfilters.help_text.exposure_photo_entity": "<EntityID> (>= || > || < || <= || ==) <Count>; <EntityID2> (>= || > || < || <= || ==) <Count2>; ...",
   "item.ftbqaa.exposure_photo_entity": "Exposure Photo Entity Filter",
   "itemfilters.help_text.exposure_photo_structure": "<Structure> ; <Structure2> ; ...",
   "item.ftbqaa.exposure_photo_structure": "Exposure Photo Structure Filter"

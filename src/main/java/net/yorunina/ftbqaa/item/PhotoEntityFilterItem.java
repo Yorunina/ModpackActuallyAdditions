@@ -1,6 +1,5 @@
 package net.yorunina.ftbqaa.item;
 
-import com.google.common.base.Joiner;
 import dev.latvian.mods.itemfilters.item.StringValueData;
 import dev.latvian.mods.itemfilters.item.StringValueFilterItem;
 import io.github.mortuusars.exposure.item.PhotographItem;
@@ -9,12 +8,9 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +18,7 @@ public class PhotoEntityFilterItem extends StringValueFilterItem {
 
     public static class EntityPhotoData {
         public String entityId;
-        public float distance;
+        public int count;
         public int mode;
     }
 
@@ -52,9 +48,9 @@ public class PhotoEntityFilterItem extends StringValueFilterItem {
                         if (matcher.matches()) {
                             String entityId = matcher.group(1);
                             String operator = matcher.group(2);
-                            float distance = Float.parseFloat(matcher.group(3));
+                            int count = Integer.parseInt(matcher.group(3));
                             check.entityId = entityId;
-                            check.distance = distance;
+                            check.count = count;
                             switch (operator) {
                                 case ">=":
                                     check.mode = 1;
@@ -68,9 +64,9 @@ public class PhotoEntityFilterItem extends StringValueFilterItem {
                                 case "<":
                                     check.mode = 4;
                                     break;
-                                case "=": // Assuming "=" means "=="
+                                case "=":
                                 case "==":
-                                    check.mode = 0; // Default for equality
+                                    check.mode = 0;
                                     break;
                             }
                         }
@@ -95,7 +91,7 @@ public class PhotoEntityFilterItem extends StringValueFilterItem {
                     case 4 -> builder.append(" < ");
                     case 0 -> builder.append(" == "); // Assuming 0 is for equality
                 }
-                builder.append(entityCheck.distance);
+                builder.append(entityCheck.count);
             });
 
             return builder.toString();
@@ -122,27 +118,29 @@ public class PhotoEntityFilterItem extends StringValueFilterItem {
 
         ListTag entityNbtList = nbt.getList("Entities", Tag.TAG_COMPOUND);
 
-        if (entityNbtList.isEmpty()) return false;
+        Map<String, Integer> entityCountMap = new HashMap<>();
         for (Tag entityTag : entityNbtList) {
             if (entityTag instanceof CompoundTag entityNbt && entityNbt.contains("Id")) {
                 String entityId = entityNbt.getString("Id");
-                float distance = entityNbt.getFloat("Distance");
-                if (entityChecks.stream()
-                        .anyMatch(entityPhotoData -> entityPhotoData.entityId.equals(entityId) &&
-                                (switch (entityPhotoData.mode) {
-                                    case 1 -> distance >= entityPhotoData.distance;
-                                    case 2 -> distance <= entityPhotoData.distance;
-                                    case 3 -> distance > entityPhotoData.distance;
-                                    case 4 -> distance < entityPhotoData.distance;
-                                    case 0 -> distance == entityPhotoData.distance;
-                                    default -> false;
-                                }))) {
-                    return true;
-                }
+                entityCountMap.put(entityId, entityCountMap.getOrDefault(entityId, 0) + 1);
             }
         }
 
-        return false;
+        boolean result = true;
+        for (EntityPhotoData entityCheck : entityChecks) {
+            String entityId = entityCheck.entityId;
+            int count = entityCountMap.getOrDefault(entityId, 0);
+            switch (entityCheck.mode) {
+                case 1 -> result &= count >= entityCheck.count;
+                case 2 -> result &= count <= entityCheck.count;
+                case 3 -> result &= count > entityCheck.count;
+                case 4 -> result &= count < entityCheck.count;
+                case 0 -> result &= count == entityCheck.count;
+                default -> result = false;
+            }
+        }
+
+        return result;
     }
 
     @Override

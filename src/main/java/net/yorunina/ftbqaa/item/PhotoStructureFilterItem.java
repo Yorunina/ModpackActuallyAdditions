@@ -64,12 +64,12 @@ public class PhotoStructureFilterItem extends StringValueFilterItem {
         if (structures.length == 0) return false;
 
         ListTag structureNbtList = nbt.getList("Structures", Tag.TAG_STRING);
-        // 判断nbt中是否包含structures中的任意一个结构
+        // 判断nbt中是否包含structures中的任意一个结构，只要前缀匹配即认为匹配
 
         return structureNbtList.stream()
                 .map(Tag::getAsString)
-                .filter(asString -> !asString.isEmpty())
-                .anyMatch(Arrays.asList(structures)::contains);
+                .filter(structStr -> !structStr.isEmpty())
+                .anyMatch(structStr -> Arrays.stream(structures).anyMatch(structStr::startsWith));
     }
     @Override
     public String getHelpKey() {
