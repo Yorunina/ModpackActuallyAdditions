@@ -17,5 +17,15 @@
   "itemfilters.help_text.exposure_photo_entity": "<EntityID> (>= || > || < || <= || ==) <Count>; <EntityID2> (>= || > || < || <= || ==) <Count2>; ...",
   "item.ftbqaa.exposure_photo_entity": "Exposure Photo Entity Filter",
   "itemfilters.help_text.exposure_photo_structure": "<Structure> ; <Structure2> ; ...",
-  "item.ftbqaa.exposure_photo_structure": "Exposure Photo Structure Filter"
+  "item.ftbqaa.exposure_photo_structure": "Exposure Photo Structure Filter",
+  "itemfilters.help_text.exposure_photo_biome": "<Biome> ; <Biome2> ; ...",
+  "item.ftbqaa.exposure_photo_biome": "Exposure Photo Biome Filter",
+  "itemfilters.help_text.exposure_photo_weather": "<Weather> ; <Weather2> ; ...",
+  "item.ftbqaa.exposure_photo_weather": "Exposure Photo Weather Filter",
+  "itemfilters.help_text.photo_light_level": "<LightLevel> (>= || > || < || <= || ==) <int>",
+  "item.ftbqaa.exposure_photo_light_level": "Exposure Photo Light Level Filter",
+  "itemfilters.help_text.photo_day_time": "<DayTime> (>= || > || < || <= || ==) <int>",
+  "item.ftbqaa.exposure_photo_day_time": "Exposure Photo Day Time Filter",
+  "itemfilters.help_text.exposure_photo_dimension": "<Dimension> ; <Dimension2> ; ...",
+  "item.ftbqaa.exposure_photo_dimension": "Exposure Photo Dimension Filter"
 }

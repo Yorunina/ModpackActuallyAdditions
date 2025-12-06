@@ -17,5 +17,15 @@
   "itemfilters.help_text.exposure_photo_entity": "<EntityID> (>= || > || < || <= || ==) <Count>; <EntityID2> (>= || > || < || <= || ==) <Count2>; ...",
   "item.ftbqaa.exposure_photo_entity": "照片实体过滤器",
   "itemfilters.help_text.exposure_photo_structure": "<Structure> ; <Structure2> ; ...",
-  "item.ftbqaa.exposure_photo_structure": "照片结构过滤器"
+  "item.ftbqaa.exposure_photo_structure": "照片结构过滤器",
+  "itemfilters.help_text.exposure_photo_biome": "<Biome> ; <Biome2> ; ...",
+  "item.ftbqaa.exposure_photo_biome": "照片生态群系过滤器",
+  "itemfilters.help_text.exposure_photo_weather": "<Weather> ; <Weather2> ; ...",
+  "item.ftbqaa.exposure_photo_weather": "照片天气过滤器",
+  "itemfilters.help_text.photo_light_level": "<LightLevel> (>= || > || < || <= || ==) <int>",
+  "item.ftbqaa.exposure_photo_light_level": "照片光照等级过滤器",
+  "itemfilters.help_text.photo_day_time": "<DayTime> (>= || > || < || <= || ==) <int>",
+  "item.ftbqaa.exposure_photo_day_time": "照片时间过滤器",
+  "itemfilters.help_text.exposure_photo_dimension": "<Dimension> ; <Dimension2> ; ...",
+  "item.ftbqaa.exposure_photo_dimension": "照片维度过滤器"
 }

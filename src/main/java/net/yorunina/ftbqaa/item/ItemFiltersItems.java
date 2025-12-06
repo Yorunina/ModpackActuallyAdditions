@@ -22,6 +22,18 @@ public class ItemFiltersItems {
             PhotoStructureFilterItem::new);
     public static final RegistryObject<Item> EXPOSURE_PHOTO_ENTITY_FILTER = ITEMS.register("exposure_photo_entity",
             PhotoEntityFilterItem::new);
+    public static final RegistryObject<Item> EXPOSURE_PHOTO_BIOME_FILTER = ITEMS.register("exposure_photo_biome",
+            PhotoBiomeFilterItem::new);
+    public static final RegistryObject<Item> EXPOSURE_PHOTO_WEATHER_FILTER = ITEMS.register("exposure_photo_weather",
+            PhotoWeatherFilterItem::new);
+    public static final RegistryObject<Item> EXPOSURE_PHOTO_LIGHT_LEVEL_FILTER = ITEMS.register("exposure_photo_light_level",
+            PhotoLightLevelFilterItem::new);
+    public static final RegistryObject<Item> EXPOSURE_PHOTO_DAY_TIME_FILTER = ITEMS.register("exposure_photo_day_time",
+            PhotoDayTimeFilterItem::new);
+    public static final RegistryObject<Item> EXPOSURE_PHOTO_DIMENSION_FILTER = ITEMS.register("exposure_photo_dimension",
+            PhotoDimensionFilterItem::new);
+
+
 
 
     public static void register(IEventBus eventBus) {
