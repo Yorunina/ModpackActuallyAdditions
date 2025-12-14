@@ -7,5 +7,6 @@ import net.yorunina.ftbqaa.FTBQuestActuallyAdditions;
 
 public interface AATaskTypes {
     TaskType ASTAGES = TaskTypes.register(FTBQuestActuallyAdditions.id( "astages"), AStageTask::new, () -> Icons.CONTROLLER);
+    TaskType DIM_NET = TaskTypes.register(FTBQuestActuallyAdditions.id("dim_net"), DimNetTask::new, () -> Icons.CONTROLLER);
     static void init() {}
 }
