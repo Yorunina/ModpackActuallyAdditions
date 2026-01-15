@@ -25,7 +25,7 @@ public class AStageTask extends AbstractBooleanTask {
     }
 
     public TaskType getType() {
-        return AATaskTypes.ASTAGES;
+        return TasksRegistry.ASTAGES;
     }
 
     public void writeData(CompoundTag nbt) {

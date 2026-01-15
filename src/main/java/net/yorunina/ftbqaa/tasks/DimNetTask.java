@@ -24,7 +24,7 @@ public class DimNetTask extends AbstractBooleanTask {
     }
 
     public TaskType getType() {
-        return AATaskTypes.DIM_NET;
+        return TasksRegistry.DIM_NET;
     }
 
     public void writeData(CompoundTag nbt) {
