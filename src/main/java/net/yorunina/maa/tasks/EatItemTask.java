@@ -70,7 +70,7 @@ public class EatItemTask extends Task {
     @OnlyIn(Dist.CLIENT)
     public void fillConfigGroup(ConfigGroup config) {
         super.fillConfigGroup(config);
-        config.addItemStack("item", this.food, (v) -> this.food = v, ItemStack.EMPTY, true, false).setNameKey("ftbquests.task.ftbquests.items");
+        config.addItemStack("item", this.food, (v) -> this.food = v, ItemStack.EMPTY, true, false).setNameKey("ftbquests.task.maa.items");
         config.addLong("count", this.count, (v) -> this.count = v, 1L, 1L, Long.MAX_VALUE);
     }
 

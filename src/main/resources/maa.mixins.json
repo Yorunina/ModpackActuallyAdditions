@@ -6,6 +6,7 @@
   "refmap": "maa.refmap.json",
   "mixins": [
     "MixinItemEntity",
+    "MixinQuest",
     "MixinStageBarrierBlockEntity"
   ],
   "client": [

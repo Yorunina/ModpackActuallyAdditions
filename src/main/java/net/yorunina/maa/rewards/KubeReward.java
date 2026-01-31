@@ -1,17 +1,12 @@
 package net.yorunina.maa.rewards;
 
-import com.alessandro.astages.api.AStagesUtils;
-import com.alessandro.astages.api.holder.AHolder;
 import dev.ftb.mods.ftblibrary.config.ConfigGroup;
 import dev.ftb.mods.ftbquests.events.CustomRewardEvent;
 import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.reward.CustomReward;
-import dev.ftb.mods.ftbquests.quest.reward.Reward;
-import dev.ftb.mods.ftbquests.quest.reward.RewardAutoClaim;
 import dev.ftb.mods.ftbquests.quest.reward.RewardType;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.kubejs.CustomRewardEventJS;
 import dev.ftb.mods.ftbxmodcompat.ftbquests.kubejs.FTBQuestsKubeJSEvents;
-import dev.ftb.mods.ftbxmodcompat.ftbquests.kubejs.KubeJSIntegration;
 import dev.latvian.mods.kubejs.script.ScriptType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
