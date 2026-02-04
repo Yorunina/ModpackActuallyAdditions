@@ -5,11 +5,13 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "maa.refmap.json",
   "mixins": [
+    "MixinEntity",
     "MixinItemEntity",
     "MixinQuest",
     "MixinStageBarrierBlockEntity"
   ],
   "client": [
+    "MixinScreenEffectRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

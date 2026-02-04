@@ -8,6 +8,7 @@ import dev.ftb.mods.ftbquests.util.ProgressChange;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.yorunina.maa.mixin.MixinScreenEffectRenderer;
 import net.yorunina.maa.tasks.KubeTask;
 import net.yorunina.maa.tasks.TasksRegistry;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 public class MAAUtils {
     public static final MAAUtils INSTANCE = new MAAUtils();
+    public boolean noFireRender = false;
 
     public void resetPlayerTaskProgress(Player player) {
         if (player == null) return;
@@ -31,5 +33,9 @@ public class MAAUtils {
 
     public void onKubeTasksFinish(List<String> taskIds, ServerPlayer player, Function3<KubeTask, ServerPlayer, TeamData, Void> consumer) {
         TasksRegistry.getInstance().onKubeTaskFinish(taskIds, player, consumer);
+    }
+
+    public void setNoFireRender(boolean value) {
+        this.noFireRender = value;
     }
 }
