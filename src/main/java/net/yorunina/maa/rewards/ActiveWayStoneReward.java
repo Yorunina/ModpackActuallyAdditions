@@ -23,7 +23,7 @@ public class ActiveWayStoneReward extends Reward {
 
     public ActiveWayStoneReward(long id, Quest quest) {
         super(id, quest);
-        this.autoclaim = RewardAutoClaim.INVISIBLE;
+        this.autoclaim = RewardAutoClaim.DEFAULT;
     }
 
     public RewardType getType() {
@@ -33,9 +33,7 @@ public class ActiveWayStoneReward extends Reward {
     public void writeData(CompoundTag nbt) {
         super.writeData(nbt);
         nbt.putString("name", this.name);
-        if (this.remove) {
-            nbt.putBoolean("remove", true);
-        }
+        nbt.putBoolean("remove", this.remove);
     }
 
     public void readData(CompoundTag nbt) {

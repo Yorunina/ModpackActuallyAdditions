@@ -33,12 +33,8 @@ public class AStageReward extends Reward {
     public void writeData(CompoundTag nbt) {
         super.writeData(nbt);
         nbt.putString("stage", this.stage);
-        if (this.remove) {
-            nbt.putBoolean("remove", true);
-        }
-        if (this.isServer) {
-            nbt.putBoolean("isServer", true);
-        }
+        nbt.putBoolean("remove", this.remove);
+        nbt.putBoolean("isServer", this.isServer);
     }
 
     public void readData(CompoundTag nbt) {

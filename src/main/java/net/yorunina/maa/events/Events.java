@@ -10,6 +10,7 @@ import net.yorunina.maa.tasks.TasksRegistry;
 public class Events {
     @SubscribeEvent
     public static void onLivingEntityEat(LivingEntityEatEvent event) {
+        if (event.getPlayer() == null) return;
         TasksRegistry.getInstance().onLivingEntityEat(event.getPlayer(), event.getFood());
     }
 }
