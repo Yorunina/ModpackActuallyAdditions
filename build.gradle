@@ -96,10 +96,10 @@ dependencies {
     implementation fg.deobf("curse.maven:kubejs-forge-238086:5853326")
 
     implementation fg.deobf("curse.maven:curios-forge-309927:6418456")
-    implementation fg.deobf("curse.maven:ftb-quests-forge-289412:4816382")
+    implementation fg.deobf("curse.maven:ftb-quests-forge-289412:7608804")
     implementation fg.deobf("curse.maven:ftb-xmod-compat-889915:6402486")
-    implementation fg.deobf("curse.maven:ftb-library-forge-404465:4720056")
-    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:4623116")
+    implementation fg.deobf("curse.maven:ftb-library-forge-404465:7293430")
+    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:7499810")
     implementation fg.deobf("curse.maven:item-filters-309674:4838266")
     implementation fg.deobf("curse.maven:quests-additions-forge-580129:6004490")
 

@@ -56,7 +56,7 @@ public class KubeReward extends CustomReward {
 
     @Override
     public void claim(ServerPlayer player, boolean notify) {
-        FTBQuestsKubeJSEvents.CUSTOM_REWARD.post( ScriptType.SERVER, this.kubeId, new CustomRewardEventJS(new CustomRewardEvent(this, player, false))).arch();
+        FTBQuestsKubeJSEvents.CUSTOM_REWARD.post(ScriptType.SERVER, this.kubeId, new CustomRewardEventJS(new CustomRewardEvent(this, player, false))).arch();
     }
 
     @OnlyIn(Dist.CLIENT)
