@@ -29,7 +29,7 @@ public class TasksRegistry {
     public static final TaskType DIM_NET = TaskTypes.register(ModpackActuallyAdditions.id("dim_net"), DimNetTask::new, () -> Icons.CONTROLLER);
     public static final TaskType EAT_ITEM = TaskTypes.register(ModpackActuallyAdditions.id("eat_item"), EatItemTask::new, () -> Icons.CONTROLLER);
     public static final TaskType KUBE = TaskTypes.register(ModpackActuallyAdditions.id("kube"), KubeTask::new, () -> Icons.CONTROLLER);
-    public static final TaskType KUBE_TEXT_INPUT = TaskTypes.register(ModpackActuallyAdditions.id("kube_text_input"), KubeTextInputTask::new, () -> Icons.CONTROLLER);
+    public static final TaskType KUBE_TEXT_INPUT = TaskTypes.register(ModpackActuallyAdditions.id("kube_text_input"), KubeTextInputTask::new, () -> Icons.CHAT);
 
 
     private static TasksRegistry INSTANCE = null;

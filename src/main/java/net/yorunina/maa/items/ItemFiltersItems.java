@@ -32,9 +32,31 @@ public class ItemFiltersItems {
             PhotoDayTimeFilterItem::new);
     public static final RegistryObject<Item> EXPOSURE_PHOTO_DIMENSION_FILTER = ITEMS.register("exposure_photo_dimension",
             PhotoDimensionFilterItem::new);
+    public static final RegistryObject<Item> CHEST_CAVITY_ORGAN_SCORE_FILTER = ITEMS.register("chest_cavity_organ_score",
+            ChestCavityOrganScoreFilterItem::new);
 
 
+    public static int operation2Mode(String operator) {
+        return switch (operator) {
+            case ">=" -> 1;
+            case "<=" -> 2;
+            case ">" -> 3;
+            case "<" -> 4;
+            case "=", "==" -> 0;
+            default -> -1;
+        };
+    }
 
+    public static String mode2Operation(int mode) {
+        return switch (mode) {
+            case 1 -> ">=";
+            case 2 -> "<=";
+            case 3 -> ">";
+            case 4 -> "<";
+            case 0 -> "==";
+            default -> "";
+        };
+    }
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

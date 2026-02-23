@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public class TconToolModifierFilterItem extends StringValueFilterItem {
 
     public static class ModifierCheck {
-        public int mode; // 0: ==, 1: >=, 2: <=, 3: >, 4: <
+        public int mode;
         public ModifierId modifierId;
         public int level;
     }
@@ -42,32 +42,15 @@ public class TconToolModifierFilterItem extends StringValueFilterItem {
                 }
 
                 check.modifierId = new ModifierId(modifierId);
-
-                switch (operator) {
-                    case ">=":
-                        check.mode = 1;
-                        break;
-                    case "<=":
-                        check.mode = 2;
-                        break;
-                    case ">":
-                        check.mode = 3;
-                        break;
-                    case "<":
-                        check.mode = 4;
-                        break;
-                    case "=": // Assuming "=" means "=="
-                    case "==":
-                        check.mode = 0; // Default for equality
-                        break;
-                    default:
-                        return null; // Unknown operator
+                check.mode = ItemFiltersItems.operation2Mode(operator);
+                if (check.mode == -1) {
+                    return null;
                 }
 
                 check.level = level;
                 return check;
             }
-            return null; // No match
+            return null;
         }
 
         @Override
@@ -76,20 +59,9 @@ public class TconToolModifierFilterItem extends StringValueFilterItem {
                 return "";
             }
 
-            StringBuilder builder = new StringBuilder();
-            builder.append(value.modifierId); // Get the full resource location of the modifier
-
-            switch (value.mode) {
-                case 1 -> builder.append(" >= ");
-                case 2 -> builder.append(" <= ");
-                case 3 -> builder.append(" > ");
-                case 4 -> builder.append(" < ");
-                case 0 -> builder.append(" == "); // Assuming 0 is for equality
-            }
-
-            builder.append(value.level);
-
-            return builder.toString();
+            return value.modifierId +
+                    ItemFiltersItems.mode2Operation(value.mode) +
+                    value.level;
         }
     }
 

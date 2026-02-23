@@ -51,23 +51,9 @@ public class PhotoEntityFilterItem extends StringValueFilterItem {
                             int count = Integer.parseInt(matcher.group(3));
                             check.entityId = entityId;
                             check.count = count;
-                            switch (operator) {
-                                case ">=":
-                                    check.mode = 1;
-                                    break;
-                                case "<=":
-                                    check.mode = 2;
-                                    break;
-                                case ">":
-                                    check.mode = 3;
-                                    break;
-                                case "<":
-                                    check.mode = 4;
-                                    break;
-                                case "=":
-                                case "==":
-                                    check.mode = 0;
-                                    break;
+                            check.mode = ItemFiltersItems.operation2Mode(operator);
+                            if (check.mode == -1) {
+                                return null;
                             }
                         }
                         return check;
@@ -84,13 +70,7 @@ public class PhotoEntityFilterItem extends StringValueFilterItem {
             StringBuilder builder = new StringBuilder();
             structureCheck.entities.forEach(entityCheck -> {
                 builder.append(entityCheck.entityId);
-                switch (entityCheck.mode) {
-                    case 1 -> builder.append(" >= ");
-                    case 2 -> builder.append(" <= ");
-                    case 3 -> builder.append(" > ");
-                    case 4 -> builder.append(" < ");
-                    case 0 -> builder.append(" == "); // Assuming 0 is for equality
-                }
+                builder.append(ItemFiltersItems.mode2Operation(entityCheck.mode));
                 builder.append(entityCheck.count);
             });
 

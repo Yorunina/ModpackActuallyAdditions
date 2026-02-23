@@ -65,6 +65,9 @@ mixin {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    flatDir {
+        dir 'libs'
+    }
     maven {
         name = "Curse maven"
         url = "https://cursemaven.com"
@@ -110,6 +113,7 @@ dependencies {
     implementation fg.deobf("curse.maven:waystones-forge-245755:6856603")
 
     implementation fg.deobf("curse.maven:beyonddimensions-1222890:7264000")
+    implementation fg.deobf("blank:chestcavity-1.20.1:2.16.7")
 }
 
 tasks.named('processResources', ProcessResources).configure {

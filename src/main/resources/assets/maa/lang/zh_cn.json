@@ -48,5 +48,7 @@
   "itemfilters.help_text.photo_day_time": "<DayTime> (>= || > || < || <= || ==) <int>",
   "item.maa.exposure_photo_day_time": "照片时间过滤器",
   "itemfilters.help_text.exposure_photo_dimension": "<Dimension> ; <Dimension2> ; ...",
-  "item.maa.exposure_photo_dimension": "照片维度过滤器"
+  "item.maa.exposure_photo_dimension": "照片维度过滤器",
+  "itemfilters.help_text.chest_cavity_organ_score": "<OrganScoreType> (>= || > || < || <= || ==) <float>",
+  "item.maa.chest_cavity_organ_score": "胸腔属性过滤器"
 }

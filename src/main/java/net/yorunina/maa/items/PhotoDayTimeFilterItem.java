@@ -33,23 +33,9 @@ public class PhotoDayTimeFilterItem extends StringValueFilterItem {
             if (matcher.matches()) {
                 String operator = matcher.group(1);
                 check.dayTime = Integer.parseInt(matcher.group(2));
-                switch (operator) {
-                    case ">=":
-                        check.mode = 1;
-                        break;
-                    case "<=":
-                        check.mode = 2;
-                        break;
-                    case ">":
-                        check.mode = 3;
-                        break;
-                    case "<":
-                        check.mode = 4;
-                        break;
-                    case "=":
-                    case "==":
-                        check.mode = 0;
-                        break;
+                check.mode = ItemFiltersItems.operation2Mode(operator);
+                if (check.mode == -1) {
+                    return null;
                 }
             }
             return check;
@@ -60,16 +46,8 @@ public class PhotoDayTimeFilterItem extends StringValueFilterItem {
             if (dayTimeCheck == null) {
                 return "";
             }
-            StringBuilder builder = new StringBuilder();
-            switch (dayTimeCheck.mode) {
-                case 1 -> builder.append(" >= ");
-                case 2 -> builder.append(" <= ");
-                case 3 -> builder.append(" > ");
-                case 4 -> builder.append(" < ");
-                case 0 -> builder.append(" == "); // Assuming 0 is for equality
-            }
-            builder.append(dayTimeCheck.dayTime);
-            return builder.toString();
+            return ItemFiltersItems.mode2Operation(dayTimeCheck.mode) +
+                    dayTimeCheck.dayTime;
         }
     }
 

@@ -43,26 +43,9 @@ public class TconToolStatsFilterItem extends StringValueFilterItem {
                 }
                 ToolStatId statsId = new ToolStatId(statsIdStr);
                 check.stats = ToolStats.getToolStat(statsId);
-
-                switch (operator) {
-                    case ">=":
-                        check.mode = 1;
-                        break;
-                    case "<=":
-                        check.mode = 2;
-                        break;
-                    case ">":
-                        check.mode = 3;
-                        break;
-                    case "<":
-                        check.mode = 4;
-                        break;
-                    case "=": // Assuming "=" means "=="
-                    case "==":
-                        check.mode = 0; // Default for equality
-                        break;
-                    default:
-                        return null; // Unknown operator
+                check.mode = ItemFiltersItems.operation2Mode(operator);
+                if (check.mode == -1) {
+                    return null;
                 }
 
                 return check;
@@ -78,14 +61,7 @@ public class TconToolStatsFilterItem extends StringValueFilterItem {
 
             StringBuilder builder = new StringBuilder();
             builder.append(value.stats.getName()); // Get the full resource location of the modifier
-
-            switch (value.mode) {
-                case 1 -> builder.append(" >= ");
-                case 2 -> builder.append(" <= ");
-                case 3 -> builder.append(" > ");
-                case 4 -> builder.append(" < ");
-                case 0 -> builder.append(" == "); // Assuming 0 is for equality
-            }
+            builder.append(ItemFiltersItems.mode2Operation(value.mode));
 
             builder.append(value.num);
 
