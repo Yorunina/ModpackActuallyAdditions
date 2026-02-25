@@ -98,6 +98,9 @@ dependencies {
     implementation fg.deobf("curse.maven:rhino-416294:6186971")
     implementation fg.deobf("curse.maven:kubejs-forge-238086:5853326")
 
+    implementation fg.deobf("curse.maven:amendments-896746:7240735")
+    implementation fg.deobf("curse.maven:moonlight-499980:7191950")
+
     implementation fg.deobf("curse.maven:curios-forge-309927:6418456")
     implementation fg.deobf("curse.maven:ftb-quests-forge-289412:7608804")
     implementation fg.deobf("curse.maven:ftb-xmod-compat-889915:6402486")
