@@ -2,7 +2,7 @@ package net.yorunina.maa.items;
 
 import dev.latvian.mods.itemfilters.item.StringValueData;
 import dev.latvian.mods.itemfilters.item.StringValueFilterItem;
-import io.github.mortuusars.exposure.item.PhotographItem;
+import io.github.mortuusars.exposure.world.item.PhotographItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -90,18 +90,20 @@ public class PhotoEntityFilterItem extends StringValueFilterItem {
         if (!(item instanceof PhotographItem)) return false;
         if (!stack.hasTag()) return false;
         CompoundTag nbt = stack.getTag();
-        if (!nbt.contains("Entities")) return false;
+        if (!nbt.contains("photograph_frame")) return false;
+        CompoundTag frameNbt = nbt.getCompound("photograph_frame");
+        if (!frameNbt.contains("entities_in_frame")) return false;
 
         EntityData data = getStringValueData(filter);
         List<EntityPhotoData> entityChecks = data.getValue().entities;
         if (entityChecks.isEmpty()) return false;
 
-        ListTag entityNbtList = nbt.getList("Entities", Tag.TAG_COMPOUND);
+        ListTag entityNbtList = frameNbt.getList("entities_in_frame", Tag.TAG_COMPOUND);
 
         Map<String, Integer> entityCountMap = new HashMap<>();
         for (Tag entityTag : entityNbtList) {
-            if (entityTag instanceof CompoundTag entityNbt && entityNbt.contains("Id")) {
-                String entityId = entityNbt.getString("Id");
+            if (entityTag instanceof CompoundTag entityNbt && entityNbt.contains("id")) {
+                String entityId = entityNbt.getString("id");
                 entityCountMap.put(entityId, entityCountMap.getOrDefault(entityId, 0) + 1);
             }
         }

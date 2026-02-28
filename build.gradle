@@ -112,7 +112,7 @@ dependencies {
     implementation fg.deobf("curse.maven:lightmanscurrency-472521:7520021")
 
     implementation fg.deobf("curse.maven:astages-1120180:7204574")
-    implementation fg.deobf("curse.maven:exposure-871755:6655718")
+    implementation fg.deobf("curse.maven:exposure-871755:7667015")
     implementation fg.deobf("curse.maven:waystones-forge-245755:6856603")
 
     implementation fg.deobf("curse.maven:beyonddimensions-1222890:7264000")

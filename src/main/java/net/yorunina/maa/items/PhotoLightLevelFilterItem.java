@@ -2,7 +2,7 @@ package net.yorunina.maa.items;
 
 import dev.latvian.mods.itemfilters.item.StringValueData;
 import dev.latvian.mods.itemfilters.item.StringValueFilterItem;
-import io.github.mortuusars.exposure.item.PhotographItem;
+import io.github.mortuusars.exposure.world.item.PhotographItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -65,12 +65,16 @@ public class PhotoLightLevelFilterItem extends StringValueFilterItem {
         if (!(item instanceof PhotographItem)) return false;
         if (!stack.hasTag()) return false;
         CompoundTag nbt = stack.getTag();
-        if (!nbt.contains("LightLevel")) return false;
+        if (!nbt.contains("photograph_frame")) return false;
+        CompoundTag frameNbt = nbt.getCompound("photograph_frame");
+        if (!frameNbt.contains("extra_data")) return false;
+        CompoundTag extraData = frameNbt.getCompound("extra_data");
+        if (!extraData.contains("light_level")) return false;
 
         LightLevelData data = getStringValueData(filter);
         LightLevelCheck lightLevelCheck = data.getValue();
 
-        int lightLevel = nbt.getInt("LightLevel");
+        int lightLevel = extraData.getInt("light_level");
 
         boolean result = true;
         switch (lightLevelCheck.mode) {

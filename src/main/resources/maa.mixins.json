@@ -8,8 +8,11 @@
     "MixinCauldronRecipeUtils",
     "MixinEntity",
     "MixinItemEntity",
+    "MixinPartyTeam",
     "MixinQuest",
-    "MixinStageBarrierBlockEntity"
+    "MixinStageBarrierBlockEntity",
+    "MixinTeamData",
+    "MixinTeamManagerImpl"
   ],
   "client": [
     "MixinScreenEffectRenderer"

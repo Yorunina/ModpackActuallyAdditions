@@ -1,8 +1,9 @@
 package net.yorunina.maa.items;
 
+import dev.ftb.mods.ftbteams.api.Team;
 import dev.latvian.mods.itemfilters.item.StringValueData;
 import dev.latvian.mods.itemfilters.item.StringValueFilterItem;
-import io.github.mortuusars.exposure.item.PhotographItem;
+import io.github.mortuusars.exposure.world.item.PhotographItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -55,15 +56,18 @@ public class PhotoWeatherFilterItem extends StringValueFilterItem {
         if (!(item instanceof PhotographItem)) return false;
         if (!stack.hasTag()) return false;
         CompoundTag nbt = stack.getTag();
-        if (!nbt.contains("Biome")) return false;
+        if (!nbt.contains("photograph_frame")) return false;
+        CompoundTag frameNbt = nbt.getCompound("photograph_frame");
+        if (!frameNbt.contains("extra_data")) return false;
+        CompoundTag extraData = frameNbt.getCompound("extra_data");
+        if (!extraData.contains("weather")) return false;
 
         WeatherData data = getStringValueData(filter);
         String[] weathers = data.getValue().weathers;
         if (weathers.length == 0) return false;
 
-        String weather = nbt.getString("Weather");
+        String weather = extraData.getString("weather");
         // 只要前缀匹配即认为匹配
-
         return Arrays.stream(weathers).anyMatch(weather::startsWith);
     }
     @Override

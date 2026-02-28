@@ -2,7 +2,7 @@ package net.yorunina.maa.items;
 
 import dev.latvian.mods.itemfilters.item.StringValueData;
 import dev.latvian.mods.itemfilters.item.StringValueFilterItem;
-import io.github.mortuusars.exposure.item.PhotographItem;
+import io.github.mortuusars.exposure.world.item.PhotographItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -63,12 +63,16 @@ public class PhotoDayTimeFilterItem extends StringValueFilterItem {
         if (!(item instanceof PhotographItem)) return false;
         if (!stack.hasTag()) return false;
         CompoundTag nbt = stack.getTag();
-        if (!nbt.contains("DayTime")) return false;
+        if (!nbt.contains("photograph_frame")) return false;
+        CompoundTag frameNbt = nbt.getCompound("photograph_frame");
+        if (!frameNbt.contains("extra_data")) return false;
+        CompoundTag extraData = frameNbt.getCompound("extra_data");
+        if (!extraData.contains("day_time")) return false;
 
         DayTimeData data = getStringValueData(filter);
         DayTimeCheck dayTimeCheck = data.getValue();
 
-        int dayTime = nbt.getInt("DayTime");
+        int dayTime = extraData.getInt("day_time");
 
         boolean result = true;
         switch (dayTimeCheck.mode) {

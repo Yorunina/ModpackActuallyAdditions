@@ -31,11 +31,11 @@ public class RandomCubeFeature extends Feature<RandomCubeFeature.Config> {
     public boolean place(FeaturePlaceContext<Config> context) {
         WorldGenLevel level = context.level();
         BlockPos origin = context.origin();
+        if (origin.getX() % 32 >= 16 || origin.getZ() % 32 >= 16) return true;
         RandomSource random = context.random();
         Config config = context.config();
 
         StructureTemplateManager structureManager = level.getLevel().getStructureManager();
-
 
         for (int y = 0; y < config.size; y++) {
             BlockPos cubePos = origin.offset(0, y * 32, 0);
@@ -43,13 +43,12 @@ public class RandomCubeFeature extends Feature<RandomCubeFeature.Config> {
             selectedStructure.flatMap(structureManager::get).ifPresent(template -> {
                 StructurePlaceSettings settings = new StructurePlaceSettings()
                         .setRandom(random)
-                        .setIgnoreEntities(false);
+                        .setIgnoreEntities(false)
+                        .setFinalizeEntities(true);
 
                 template.placeInWorld(level, cubePos, cubePos, settings, random, 2);
             });
         }
-
-
         return true;
     }
 

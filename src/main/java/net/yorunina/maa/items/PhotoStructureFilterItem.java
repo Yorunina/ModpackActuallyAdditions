@@ -2,7 +2,7 @@ package net.yorunina.maa.items;
 
 import dev.latvian.mods.itemfilters.item.StringValueData;
 import dev.latvian.mods.itemfilters.item.StringValueFilterItem;
-import io.github.mortuusars.exposure.item.PhotographItem;
+import io.github.mortuusars.exposure.world.item.PhotographItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -57,13 +57,17 @@ public class PhotoStructureFilterItem extends StringValueFilterItem {
         if (!(item instanceof PhotographItem)) return false;
         if (!stack.hasTag()) return false;
         CompoundTag nbt = stack.getTag();
-        if (!nbt.contains("Structures")) return false;
+        if (!nbt.contains("photograph_frame")) return false;
+        CompoundTag frameNbt = nbt.getCompound("photograph_frame");
+        if (!frameNbt.contains("extra_data")) return false;
+        CompoundTag extraData = frameNbt.getCompound("extra_data");
+        if (!extraData.contains("structures")) return false;
 
         StructureData data = getStringValueData(filter);
         String[] structures = data.getValue().structures;
         if (structures.length == 0) return false;
 
-        ListTag structureNbtList = nbt.getList("Structures", Tag.TAG_STRING);
+        ListTag structureNbtList = extraData.getList("structures", Tag.TAG_STRING);
         // 判断nbt中是否包含structures中的任意一个结构，只要前缀匹配即认为匹配
 
         return structureNbtList.stream()

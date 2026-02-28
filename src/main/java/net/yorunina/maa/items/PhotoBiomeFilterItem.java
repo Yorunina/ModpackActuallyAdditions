@@ -2,7 +2,7 @@ package net.yorunina.maa.items;
 
 import dev.latvian.mods.itemfilters.item.StringValueData;
 import dev.latvian.mods.itemfilters.item.StringValueFilterItem;
-import io.github.mortuusars.exposure.item.PhotographItem;
+import io.github.mortuusars.exposure.world.item.PhotographItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -55,14 +55,17 @@ public class PhotoBiomeFilterItem extends StringValueFilterItem {
         if (!(item instanceof PhotographItem)) return false;
         if (!stack.hasTag()) return false;
         CompoundTag nbt = stack.getTag();
-        if (!nbt.contains("Biome")) return false;
+        if (!nbt.contains("photograph_frame")) return false;
+        CompoundTag frameNbt = nbt.getCompound("photograph_frame");
+        if (!frameNbt.contains("extra_data")) return false;
+        CompoundTag extraData = frameNbt.getCompound("extra_data");
+        if (!extraData.contains("biome")) return false;
 
         BiomeData data = getStringValueData(filter);
         String[] biomes = data.getValue().biomes;
         if (biomes.length == 0) return false;
 
-        String biome = nbt.getString("Biome");
-        // 只要前缀匹配即认为匹配
+        String biome = extraData.getString("biome");
 
         return Arrays.stream(biomes).anyMatch(biome::startsWith);
     }
