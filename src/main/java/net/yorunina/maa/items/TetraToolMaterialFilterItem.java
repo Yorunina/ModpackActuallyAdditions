@@ -4,9 +4,9 @@ import com.google.common.base.Joiner;
 import dev.latvian.mods.itemfilters.item.StringValueData;
 import dev.latvian.mods.itemfilters.item.StringValueFilterItem;
 import net.minecraft.world.item.ItemStack;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import se.mickelus.tetra.items.modular.ModularItem;
+import se.mickelus.tetra.module.data.EffectData;
+import se.mickelus.tetra.module.data.ToolData;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TconToolMaterialFilterItem extends StringValueFilterItem {
+public class TetraToolMaterialFilterItem extends StringValueFilterItem {
 
     public static class MaterialCheck {
         public MaterialId materialId;
@@ -65,6 +65,7 @@ public class TconToolMaterialFilterItem extends StringValueFilterItem {
             }
 
             return builder.toString();
+
         }
     }
 
@@ -75,9 +76,12 @@ public class TconToolMaterialFilterItem extends StringValueFilterItem {
 
     @Override
     public boolean filter(ItemStack filter, ItemStack stack) {
-        if (stack.isEmpty()) {
-            return false;
-        }
+        if (stack.isEmpty()) return false;
+
+        if (!(stack.getItem() instanceof ModularItem modularItem)) return false;
+        EffectData effectData = modularItem.getEffectData(stack);
+
+
 
         MaterialData data = getStringValueData(filter);
 
@@ -88,7 +92,7 @@ public class TconToolMaterialFilterItem extends StringValueFilterItem {
         if (materialId == null) {
             return false;
         }
-        ToolStack tool = ToolStack.from(stack);
+
         List<Integer> partIds = data.getValue().partIds;
 
         if (!partIds.isEmpty()) {
