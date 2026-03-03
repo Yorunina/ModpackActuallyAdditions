@@ -11,36 +11,31 @@ import javax.annotation.Nullable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TetraEffectFilterItem extends StringValueFilterItem {
+public class TetraEffectEfficiencyFilterItem extends StringValueFilterItem {
 
-    public static class EffectCheck {
+    public static class EffectEfficiencyCheck {
         public int mode;
         public ItemEffect effect;
-        public int level;
+        public float efficiency;
     }
 
-    public static class EffectCheckData extends StringValueData<EffectCheck> {
-        public EffectCheckData(ItemStack is) {
+    public static class EffectEfficiencyCheckData extends StringValueData<EffectEfficiencyCheck> {
+        public EffectEfficiencyCheckData(ItemStack is) {
             super(is);
         }
 
         @Nullable
         @Override
-        protected EffectCheck fromString(String s) {
-
+        protected EffectEfficiencyCheck fromString(String s) {
             Pattern pattern = Pattern.compile("^([a-zA-Z:_]+)\\s*([<>=]+)\\s*(\\d+)$");
             Matcher matcher = pattern.matcher(s.trim());
 
             if (matcher.matches()) {
                 String effectId = matcher.group(1);
                 String operator = matcher.group(2);
-                int level = Integer.parseInt(matcher.group(3));
+                float efficiency = Float.parseFloat(matcher.group(3));
 
-                EffectCheck check = new EffectCheck();
-
-                if (!effectId.contains(":")) {
-                    effectId = "tetra:" + effectId;
-                }
+                EffectEfficiencyCheck check = new EffectEfficiencyCheck();
 
                 check.effect = ItemEffect.get(effectId);
                 check.mode = ItemFiltersItems.operation2Mode(operator);
@@ -48,27 +43,27 @@ public class TetraEffectFilterItem extends StringValueFilterItem {
                     return null;
                 }
 
-                check.level = level;
+                check.efficiency = efficiency;
                 return check;
             }
             return null;
         }
 
         @Override
-        protected String toString(EffectCheck value) {
+        protected String toString(EffectEfficiencyCheck value) {
             if (value == null || value.effect == null) {
                 return "";
             }
 
             return value.effect.getKey() +
                     ItemFiltersItems.mode2Operation(value.mode) +
-                    value.level;
+                    value.efficiency;
         }
     }
 
     @Override
     public StringValueData<?> createData(ItemStack stack) {
-        return new EffectCheckData(stack);
+        return new EffectEfficiencyCheckData(stack);
     }
 
     @Override
@@ -76,13 +71,13 @@ public class TetraEffectFilterItem extends StringValueFilterItem {
         if (stack.isEmpty()) return false;
 
         if (!(stack.getItem() instanceof ModularItem modularItem)) return false;
-        EffectCheckData data = getStringValueData(filter);
-        EffectCheck check = data.getValue();
+        EffectEfficiencyCheckData data = getStringValueData(filter);
+        EffectEfficiencyCheck check = data.getValue();
         if (check == null || check.effect == null) return false;
         EffectData effectData = modularItem.getEffectData(stack);
         if (!effectData.contains(check.effect)) return false;
-        int curLevel = effectData.getLevel(check.effect);
-        int requiredLevel = check.level;
+        float curLevel = effectData.getEfficiency(check.effect);
+        float requiredLevel = check.efficiency;
 
         return switch (check.mode) {
             case 1 -> curLevel >= requiredLevel;
@@ -96,7 +91,7 @@ public class TetraEffectFilterItem extends StringValueFilterItem {
 
     @Override
     public String getHelpKey() {
-        return "itemfilters.help_text.tetra_effect";
+        return "itemfilters.help_text.tetra_effect_efficiency";
     }
 
 }

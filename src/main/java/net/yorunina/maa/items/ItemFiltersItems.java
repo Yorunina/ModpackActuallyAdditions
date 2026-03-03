@@ -12,8 +12,12 @@ import net.yorunina.maa.ModpackActuallyAdditions;
 public class ItemFiltersItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ModpackActuallyAdditions.MODID);
     public static final RegistryObject<Item> DURABILITY_ITEM_FILTER = ITEMS.register("durability", DurabilityFilterItem::new);
-    public static final RegistryObject<Item> TETRA_EFFECT_FILTER = ITEMS.register("tetra_effect",
-            TetraEffectFilterItem::new);
+    public static final RegistryObject<Item> TETRA_EFFECT_LEVEL_FILTER = ITEMS.register("tetra_effect_level",
+            TetraEffectLevelFilterItem::new);
+    public static final RegistryObject<Item> TETRA_EFFECT_EFFICIENCY_FILTER = ITEMS.register("tetra_effect_efficiency",
+            TetraEffectEfficiencyFilterItem::new);
+    public static final RegistryObject<Item> TETRA_IMPROVEMENT_LEVEL_FILTER = ITEMS.register("tetra_improvement_level",
+            TetraImprovementFilterItem::new);
     public static final RegistryObject<Item> TETRA_PROP_FILTER = ITEMS.register("tetra_prop",
             TetraPropFilterItem::new);
     public static final RegistryObject<Item> ITEM_ATTRIBUTE_FILTER = ITEMS.register("item_attribute",
