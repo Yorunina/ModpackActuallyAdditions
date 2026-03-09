@@ -22,6 +22,14 @@ public class ItemFiltersItems {
             TetraPropFilterItem::new);
     public static final RegistryObject<Item> ITEM_ATTRIBUTE_FILTER = ITEMS.register("item_attribute",
             ItemAttributeFilterItem::new);
+    public static final RegistryObject<Item> TETRA_MODULE_FILTER = ITEMS.register("tetra_module",
+            TetraModuleFilterItem::new);
+    public static final RegistryObject<Item> TETRA_VARIANT_KEY_FILTER = ITEMS.register("tetra_variant_key",
+            TetraVariantKeyFilterItem::new);
+    public static final RegistryObject<Item> KUBE_CUSTOM_FILTER = ITEMS.register("kube_custom",
+            KubeCustomFilterItem::new);
+    public static final RegistryObject<Item> TETRA_TOOL_ACTION_FILTER = ITEMS.register("tetra_tool_action",
+            TetraToolActionFilterItem::new);
     public static final RegistryObject<Item> EXPOSURE_PHOTO_STRUCTURE_FILTER = ITEMS.register("exposure_photo_structure",
             PhotoStructureFilterItem::new);
     public static final RegistryObject<Item> EXPOSURE_PHOTO_ENTITY_FILTER = ITEMS.register("exposure_photo_entity",

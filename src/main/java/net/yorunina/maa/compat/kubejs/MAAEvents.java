@@ -19,4 +19,6 @@ public class MAAEvents {
             .server("ftbCreateParty", () -> FTBCreatePartyJS.class).hasResult();
     public static EventHandler FTB_QUEST_CHECK_REPEATABLE = MAA_GROUP
             .server("ftbQuestCheckRepeatable", () -> FTBQuestCheckRepeatableJS.class).hasResult().extra(Extra.STRING);
+    public static EventHandler FTB_CUSTOM_ITEM_FILTER = MAA_GROUP
+            .server("ftbCustomItemFilter", () -> FTBCustomItemFilterJS.class).extra(Extra.STRING);
 }

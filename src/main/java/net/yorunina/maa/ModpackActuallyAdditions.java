@@ -8,7 +8,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.yorunina.maa.items.ItemFiltersItems;
 import net.yorunina.maa.rewards.AARewardTypes;
 import net.yorunina.maa.tasks.TasksRegistry;
-import net.yorunina.maa.worldgen.feature.MAAFeatures;
 
 @Mod(ModpackActuallyAdditions.MODID)
 public class ModpackActuallyAdditions {
@@ -18,8 +17,6 @@ public class ModpackActuallyAdditions {
         IEventBus eventBus = context.getModEventBus();
         AARewardTypes.init();
         ItemFiltersItems.register(eventBus);
-
-        MAAFeatures.FEATURES.register(eventBus);
     }
 
     private void preInit(FMLCommonSetupEvent event) {

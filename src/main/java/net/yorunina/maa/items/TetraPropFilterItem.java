@@ -1,20 +1,12 @@
 package net.yorunina.maa.items;
 
-import dev.latvian.mods.itemfilters.api.StringValueFilterVariant;
 import dev.latvian.mods.itemfilters.item.StringValueData;
 import dev.latvian.mods.itemfilters.item.StringValueFilterItem;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import se.mickelus.tetra.items.modular.ModularItem;
 import se.mickelus.tetra.module.data.ItemProperties;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,7 +27,7 @@ public class TetraPropFilterItem extends StringValueFilterItem {
         @Override
         protected TetraPropCheck fromString(String s) {
 
-            Pattern pattern = Pattern.compile("^([a-zA-Z:_]+)\\s*([<>=]+)\\s*(\\d+)$");
+            Pattern pattern = Pattern.compile("^([a-zA-Z:_]+)\\s*([<>=]+)\\s*([\\d\\.]+)$");
             Matcher matcher = pattern.matcher(s.trim());
 
             if (matcher.matches()) {
@@ -46,7 +38,7 @@ public class TetraPropFilterItem extends StringValueFilterItem {
                 check.mode = ItemFiltersItems.operation2Mode(operator);
                 if (check.mode == -1) return null;
 
-                check.num = Integer.parseInt(matcher.group(3));
+                check.num = Float.parseFloat(matcher.group(3));
                 return check;
             }
             return null;
@@ -106,21 +98,6 @@ public class TetraPropFilterItem extends StringValueFilterItem {
             case 0 -> cur == required;
             default -> false;
         };
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public Collection<StringValueFilterVariant> getValueVariants(ItemStack stack) {
-        List<StringValueFilterVariant> variants = new ArrayList<>();
-        List<String> attributeIds = List.of("integrity", "integrityUsage", "durability", "durabilityMultiplier", "integrityMultiplier");
-
-        for (String attributeEntry : attributeIds) {
-            attributeIds.add(attributeEntry);
-            StringValueFilterVariant variant = new StringValueFilterVariant(attributeEntry);
-            variant.title = Component.literal(attributeEntry);
-            variant.icon = Items.BOOK.getDefaultInstance();
-            variants.add(variant);
-        }
-        return variants;
     }
 
     @Override

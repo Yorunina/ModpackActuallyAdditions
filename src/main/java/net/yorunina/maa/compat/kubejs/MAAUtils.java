@@ -17,7 +17,16 @@ import java.util.List;
 
 public class MAAUtils {
     public static final MAAUtils INSTANCE = new MAAUtils();
+    public boolean eternalWinterEnabled = false;
+    public float globalTemperature = -10;
     public boolean noFireRender = false;
+
+    private MAAUtils() {}
+    public void resetInstance() {
+        eternalWinterEnabled = false;
+        globalTemperature = -10;
+        noFireRender = false;
+    }
 
     public void resetPlayerTaskProgress(Player player) {
         if (player == null) return;
@@ -37,6 +46,23 @@ public class MAAUtils {
 
     public void setNoFireRender(boolean value) {
         this.noFireRender = value;
+    }
+
+
+    public void setGlobalTemperature(float temperature) {
+        globalTemperature = temperature;
+    }
+
+    public float getGlobalTemperature() {
+        return globalTemperature;
+    }
+
+    public void setEternalWinterEnabled(boolean enabled) {
+        eternalWinterEnabled = enabled;
+    }
+
+    public boolean shouldSnowContinuously() {
+        return eternalWinterEnabled;
     }
 
 }

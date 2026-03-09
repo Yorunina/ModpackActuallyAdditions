@@ -27,7 +27,7 @@ public class TetraEffectEfficiencyFilterItem extends StringValueFilterItem {
         @Nullable
         @Override
         protected EffectEfficiencyCheck fromString(String s) {
-            Pattern pattern = Pattern.compile("^([a-zA-Z:_]+)\\s*([<>=]+)\\s*(\\d+)$");
+            Pattern pattern = Pattern.compile("^([a-zA-Z:_]+)\\s*([<>=]+)\\s*([\\d\\.]+)$");
             Matcher matcher = pattern.matcher(s.trim());
 
             if (matcher.matches()) {

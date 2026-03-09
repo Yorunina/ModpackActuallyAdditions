@@ -1,23 +1,16 @@
 package net.yorunina.maa.items;
 
 import com.google.common.collect.Multimap;
-import dev.architectury.platform.Mod;
-import dev.architectury.platform.Platform;
 import dev.latvian.mods.itemfilters.api.StringValueFilterVariant;
 import dev.latvian.mods.itemfilters.item.StringValueData;
 import dev.latvian.mods.itemfilters.item.StringValueFilterItem;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -44,7 +37,7 @@ public class ItemAttributeFilterItem extends StringValueFilterItem {
         @Override
         protected AttributeCheck fromString(String s) {
 
-            Pattern pattern = Pattern.compile("([a-zA-Z:_]+)\\s*([<>=]+)\\s*([\\d\\.]+)");
+            Pattern pattern = Pattern.compile("([a-zA-Z:_\\.]+)\\s*([<>=]+)\\s*([\\d\\.]+)");
             Matcher matcher = pattern.matcher(s.trim());
 
             if (matcher.matches()) {
@@ -106,22 +99,6 @@ public class ItemAttributeFilterItem extends StringValueFilterItem {
         };
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public Collection<StringValueFilterVariant> getValueVariants(ItemStack stack) {
-        List<StringValueFilterVariant> variants = new ArrayList<>();
-        LinkedHashSet<String> attributeIds = new LinkedHashSet<>();
-
-        for(ResourceLocation attributeEntry : ForgeRegistries.ATTRIBUTES.getKeys()) {
-            String id = attributeEntry.toString();
-            if (attributeIds.add(id)) {
-                StringValueFilterVariant variant = new StringValueFilterVariant(id);
-                variant.title = Component.literal(id);
-                variant.icon = Items.BOOK.getDefaultInstance();
-                variants.add(variant);
-            }
-        }
-        return variants;
-    }
 
     @Override
     public String getHelpKey() {
