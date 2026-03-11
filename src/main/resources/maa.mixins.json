@@ -17,10 +17,16 @@
     "MixinQuest",
     "MixinStageBarrierBlockEntity",
     "MixinTeamData",
-    "MixinTeamManagerImpl"
+    "MixinTeamManagerImpl",
+    "structure.MixinJigsawPlacement",
+    "structure.MixinJigsawStructure",
+    "structure.MixinPlaceCommand",
+    "structure.MixinStructureBlockEntity",
+    "structure.packet.MixinServerboundSetStructureBlockPacket"
   ],
   "client": [
-    "MixinScreenEffectRenderer"
+    "MixinScreenEffectRenderer",
+    "structure.MixinStructureBlockRenderer"
   ],
   "injectors": {
     "defaultRequire": 1
