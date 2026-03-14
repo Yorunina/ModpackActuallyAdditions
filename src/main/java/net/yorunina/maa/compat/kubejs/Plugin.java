@@ -5,6 +5,8 @@ import dev.latvian.mods.kubejs.script.BindingsEvent;
 import net.mehvahdjukaar.amendments.common.recipe.FluidAndItemCraftResult;
 import net.minecraft.world.inventory.ClickAction;
 import net.yorunina.maa.client.RenderHelper;
+import net.yorunina.maa.entities.AoeArrowEntity;
+import net.yorunina.maa.entities.SeekingArrowEntity;
 
 import static net.yorunina.maa.compat.kubejs.MAAEvents.MAA_GROUP;
 
@@ -20,5 +22,7 @@ public class Plugin extends KubeJSPlugin {
         event.add("FluidAndItemCraftResult", FluidAndItemCraftResult.class);
         event.add("ClickAction", ClickAction.class);
         event.add("RenderHelper", RenderHelper.class);
+        event.add("SeekingArrowEntity", SeekingArrowEntity.class);
+        event.add("AoeArrowEntity", AoeArrowEntity.class);
     }
 }
