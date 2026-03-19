@@ -1,5 +1,6 @@
 package net.yorunina.maa.compat.kubejs;
 
+import dev.ftb.mods.ftbquests.quest.TeamData;
 import dev.latvian.mods.kubejs.KubeJSPlugin;
 import dev.latvian.mods.kubejs.script.BindingsEvent;
 import net.mehvahdjukaar.amendments.common.recipe.FluidAndItemCraftResult;
@@ -24,5 +25,6 @@ public class Plugin extends KubeJSPlugin {
         event.add("RenderHelper", RenderHelper.class);
         event.add("SeekingArrowEntity", SeekingArrowEntity.class);
         event.add("AoeArrowEntity", AoeArrowEntity.class);
+        event.add("TeamData", TeamData.class);
     }
 }

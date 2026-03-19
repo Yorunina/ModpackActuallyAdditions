@@ -3,15 +3,13 @@ package net.yorunina.maa.items;
 import dev.latvian.mods.itemfilters.item.StringValueData;
 import dev.latvian.mods.itemfilters.item.StringValueFilterItem;
 import net.minecraft.world.item.ItemStack;
-import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.items.modular.ModularItem;
-import se.mickelus.tetra.module.data.EffectData;
+import se.mickelus.tetra.module.ItemModuleMajor;
 import se.mickelus.tetra.module.data.ImprovementData;
-import se.mickelus.tetra.module.data.ToolData;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -73,12 +71,18 @@ public class TetraImprovementFilterItem extends StringValueFilterItem {
         ImprovementLevelCheckData data = getStringValueData(filter);
         ImprovementLevelCheck check = data.getValue();
         if (check == null || check.improvement == null) return false;
-        ImprovementData[] improvements = modularItem.getImprovements(stack);
-        ImprovementData improvement = Arrays.stream(improvements).filter(p -> p.key.equals(check.improvement)).findAny().orElse(null);
-        if (improvement == null) return false;
-        int curLevel = improvement.level;
-        int requiredLevel = check.level;
 
+        AtomicInteger curLevelAtom = new AtomicInteger();
+        Arrays.stream(modularItem.getMajorModuleKeys(stack))
+                .map(moduleKey -> modularItem.getModuleFromSlot(stack, moduleKey))
+                .forEach(module -> {
+                    if (module instanceof ItemModuleMajor majorModule) {
+                        curLevelAtom.addAndGet(majorModule.getImprovementLevel(stack, check.improvement));
+                    }
+                });
+
+        int curLevel = curLevelAtom.get();
+        int requiredLevel = check.level;
         return switch (check.mode) {
             case 1 -> curLevel >= requiredLevel;
             case 2 -> curLevel <= requiredLevel;

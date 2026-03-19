@@ -85,7 +85,7 @@ public class AoeArrowEntity extends AbstractArrow {
 
         if (this.getOwner() == null || !(this.getOwner() instanceof LivingEntity owner)) return;
         Level level = this.level();
-        level.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.getX(), this.getY(), this.getZ(), 1.0D, 0.0D, 0.0D);
+        level.addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1.0D, 0.0D, 0.0D);
         AABB aabb = new AABB(this.getX() - this.aoeSize, this.getY() - this.aoeSize, this.getZ() - this.aoeSize,
                 this.getX() + this.aoeSize, this.getY() + this.aoeSize, this.getZ() + this.aoeSize);
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, aabb)) {
@@ -101,7 +101,7 @@ public class AoeArrowEntity extends AbstractArrow {
         if (this.doneAoe) return;
         if (this.getOwner() == null || !(this.getOwner() instanceof LivingEntity owner)) return;
         Level level = this.level();
-        level.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.getX(), this.getY(), this.getZ(), 1.0D, 0.0D, 0.0D);
+        level.addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1.0D, 0.0D, 0.0D);
         AABB aabb = new AABB(this.getX() - this.aoeSize, this.getY() - this.aoeSize, this.getZ() - this.aoeSize,
                 this.getX() + this.aoeSize, this.getY() + this.aoeSize, this.getZ() + this.aoeSize);
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, aabb)) {

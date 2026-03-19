@@ -35,9 +35,9 @@ public class MixinHoloMaterialApplicable {
     private UpgradeSchematic schematic;
 
     @Inject(method = "update", at =
-    @At(value = "INVOKE",
-            target = "Lse/mickelus/tetra/items/modular/impl/holo/ModularHolosphereItem;findHolosphere(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/item/ItemStack;",
-            shift = At.Shift.AFTER),
+        @At(value = "INVOKE",
+                target = "Lse/mickelus/tetra/items/modular/impl/holo/ModularHolosphereItem;findHolosphere(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/item/ItemStack;",
+                shift = At.Shift.AFTER),
             cancellable = true)
     private void update(Level level, BlockPos pos, WorkbenchTile blockEntity, ItemStack itemStack, String slot, UpgradeSchematic schematic, Player playerEntity, CallbackInfo ci) {
         this.tooltip.add(Component.translatable("tetra.holo.craft.holosphere_shortcut"));
