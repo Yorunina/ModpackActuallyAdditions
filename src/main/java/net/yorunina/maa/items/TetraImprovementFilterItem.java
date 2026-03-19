@@ -77,7 +77,8 @@ public class TetraImprovementFilterItem extends StringValueFilterItem {
                 .map(moduleKey -> modularItem.getModuleFromSlot(stack, moduleKey))
                 .forEach(module -> {
                     if (module instanceof ItemModuleMajor majorModule) {
-                        curLevelAtom.addAndGet(majorModule.getImprovementLevel(stack, check.improvement));
+                        int level = majorModule.getImprovementLevel(stack, check.improvement);
+                        curLevelAtom.addAndGet(level == -1 ? 0 : level);
                     }
                 });
 
