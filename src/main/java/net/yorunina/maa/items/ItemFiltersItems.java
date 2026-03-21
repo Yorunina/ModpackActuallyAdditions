@@ -46,6 +46,9 @@ public class ItemFiltersItems {
             PhotoDimensionFilterItem::new);
     public static final RegistryObject<Item> CHEST_CAVITY_ORGAN_SCORE_FILTER = ITEMS.register("chest_cavity_organ_score",
             ChestCavityOrganScoreFilterItem::new);
+    public static final RegistryObject<Item> TETRA_SCROLL_FILTER = ITEMS.register("tetra_scroll",
+            TetraScrollFilterItem::new);
+
 
 
     public static int operation2Mode(String operator) {
