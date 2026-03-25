@@ -21,7 +21,6 @@ public class ModpackActuallyAdditions {
     public ModpackActuallyAdditions(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
         modEventBus.addListener(this::commonInit);
-
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(this::clientInit);
         }

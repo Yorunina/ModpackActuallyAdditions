@@ -6,8 +6,6 @@ import dev.ftb.mods.ftbquests.api.QuestFile;
 import dev.ftb.mods.ftbquests.events.ClearFileCacheEvent;
 import dev.ftb.mods.ftbquests.quest.ServerQuestFile;
 import dev.ftb.mods.ftbquests.quest.TeamData;
-import dev.ftb.mods.ftbquests.quest.reward.RewardType;
-import dev.ftb.mods.ftbquests.quest.reward.RewardTypes;
 import dev.ftb.mods.ftbquests.quest.task.TaskType;
 import dev.ftb.mods.ftbquests.quest.task.TaskTypes;
 import dev.ftb.mods.ftbteams.api.Team;
@@ -15,13 +13,11 @@ import dev.ftb.mods.ftbteams.data.TeamManagerImpl;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.yorunina.maa.ModpackActuallyAdditions;
-import net.yorunina.maa.rewards.KubeReward;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 
 public class TasksRegistry {

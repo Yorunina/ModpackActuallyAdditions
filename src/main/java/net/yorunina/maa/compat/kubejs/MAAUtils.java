@@ -6,6 +6,7 @@ import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
 import dev.ftb.mods.ftbquests.quest.*;
 import dev.ftb.mods.ftbquests.util.ProgressChange;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.yorunina.maa.tasks.KubeTask;
@@ -21,7 +22,9 @@ public class MAAUtils {
     public float globalTemperature = -10;
     public boolean noFireRender = false;
 
-    private MAAUtils() {}
+    private MAAUtils() {
+    }
+
     public void resetInstance() {
         eternalWinterEnabled = false;
         globalTemperature = -10;
@@ -65,4 +68,7 @@ public class MAAUtils {
         return eternalWinterEnabled;
     }
 
+    public String getChapterIdString(Chapter chapter) {
+        return Long.toString(chapter.getId(), 16);
+    }
 }
