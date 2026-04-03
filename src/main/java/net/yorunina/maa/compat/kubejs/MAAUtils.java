@@ -2,18 +2,21 @@ package net.yorunina.maa.compat.kubejs;
 
 
 import com.mojang.datafixers.util.Function3;
+import com.wintercogs.beyonddimensions.api.dimensionnet.DimensionsNet;
+import com.wintercogs.beyonddimensions.api.dimensionnet.NetRegistryIndex;
 import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
 import dev.ftb.mods.ftbquests.quest.*;
+import dev.ftb.mods.ftbquests.quest.task.Task;
 import dev.ftb.mods.ftbquests.util.ProgressChange;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.yorunina.maa.tasks.KubeTask;
 import net.yorunina.maa.tasks.TasksRegistry;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 public class MAAUtils {
@@ -37,6 +40,14 @@ public class MAAUtils {
         ProgressChange change = new ProgressChange(ServerQuestFile.INSTANCE, teamData.getFile(), FTBQuestsClient.getClientPlayer().getUUID());
         change.setReset(true);
         change.maybeForceProgress(teamData.getTeamId());
+    }
+
+    public void resetServerTaskProgress(MinecraftServer server) {
+        ServerQuestFile.INSTANCE.getAllTeamData().forEach(teamData -> {
+            ProgressChange change = new ProgressChange(ServerQuestFile.INSTANCE, teamData.getFile(), FTBQuestsClient.getClientPlayer().getUUID());
+            change.setReset(true);
+            change.maybeForceProgress(teamData.getTeamId());
+        });
     }
 
     public void onKubeTaskFinish(String taskId, ServerPlayer player, Function3<KubeTask, ServerPlayer, TeamData, Void> consumer) {
@@ -70,5 +81,25 @@ public class MAAUtils {
 
     public String getChapterIdString(Chapter chapter) {
         return Long.toString(chapter.getId(), 16);
+    }
+
+    public void setTeamTaskCompleted(TeamData teamData, String taskId) {
+        teamData.setCompleted(Long.parseLong(taskId, 16), new Date());
+    }
+
+    public Task getTaskByTeamData(TeamData teamData, String taskId) {
+        return teamData.getFile().getTask(Long.parseLong(taskId, 16));
+    }
+
+    public List<DimensionsNet> getAllDimNet(MinecraftServer server) {
+        if (server == null) return List.of();
+        List<DimensionsNet> nets = new ArrayList<>();
+        for (int netId : NetRegistryIndex.get(server).getActiveNetIds(server)) {
+            DimensionsNet net = DimensionsNet.getNetFromId(netId);
+            if (net != null) {
+                nets.add(net);
+            }
+        }
+        return nets;
     }
 }

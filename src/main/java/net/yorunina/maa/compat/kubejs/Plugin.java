@@ -10,6 +10,7 @@ import net.minecraft.world.inventory.ClickAction;
 import net.yorunina.maa.client.RenderHelper;
 import net.yorunina.maa.entities.AoeArrowEntity;
 import net.yorunina.maa.entities.SeekingArrowEntity;
+import net.yorunina.maa.registry.Registration;
 
 import java.util.Comparator;
 
@@ -33,5 +34,6 @@ public class Plugin extends KubeJSPlugin {
         event.add("QuestFile", QuestFile.class);
         event.add("Comparator", Comparator.class);
         event.add("StatFormatter", StatFormatter.class);
+        event.add("MAARegistration", Registration.class);
     }
 }

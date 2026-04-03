@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(TeamData.class)
+@Mixin(value = TeamData.class, remap = false)
 public class MixinTeamData {
     @Shadow
     @Final

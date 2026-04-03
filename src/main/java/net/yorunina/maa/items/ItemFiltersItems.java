@@ -44,6 +44,8 @@ public class ItemFiltersItems {
             PhotoDayTimeFilterItem::new);
     public static final RegistryObject<Item> EXPOSURE_PHOTO_DIMENSION_FILTER = ITEMS.register("exposure_photo_dimension",
             PhotoDimensionFilterItem::new);
+    public static final RegistryObject<Item> EXPOSURE_PHOTO_POS_FILTER = ITEMS.register("exposure_photo_pos",
+            PhotoPosFilterItem::new);
     public static final RegistryObject<Item> CHEST_CAVITY_ORGAN_SCORE_FILTER = ITEMS.register("chest_cavity_organ_score",
             ChestCavityOrganScoreFilterItem::new);
     public static final RegistryObject<Item> TETRA_SCROLL_FILTER = ITEMS.register("tetra_scroll",

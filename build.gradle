@@ -68,6 +68,7 @@ repositories {
     flatDir {
         dir 'libs'
     }
+    maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
     maven {
         name = "Curse maven"
         url = "https://cursemaven.com"
@@ -86,9 +87,9 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.5"))
-    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.3.5")) {
-        jarJar.ranged(it, "[0.3.5,)")
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.3"))
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.5.3")) {
+        jarJar.ranged(it, "[0.5.3,)")
     }
 
 
@@ -115,10 +116,15 @@ dependencies {
     implementation fg.deobf("curse.maven:exposure-871755:7667015")
     implementation fg.deobf("curse.maven:waystones-forge-245755:6856603")
 
+    implementation(fg.deobf("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false })
+    implementation(fg.deobf("net.createmod.ponder:Ponder-Forge-${minecraft_version}:${ponder_version}"))
+    implementation fg.deobf("curse.maven:create-ore-excavation-649832:7152704")
+
     implementation fg.deobf("curse.maven:waystones-forge-551586:6906993")
 
-    implementation fg.deobf("curse.maven:beyonddimensions-1222890:7264000")
+//    implementation fg.deobf("curse.maven:beyonddimensions-1222890:7866951")
     implementation fg.deobf("blank:chestcavity-1.20.1:2.16.7")
+    implementation fg.deobf("blank:beyonddimensions-1.20.1:0.7.12")
 }
 
 tasks.named('processResources', ProcessResources).configure {

@@ -1,6 +1,7 @@
 package net.yorunina.maa;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.stats.Stats;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -14,11 +15,21 @@ import net.yorunina.maa.entities.MAAEntityRegistry;
 import net.yorunina.maa.items.ItemFiltersItems;
 import net.yorunina.maa.rewards.AARewardTypes;
 import net.yorunina.maa.tasks.TasksRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static io.github.mortuusars.exposure.forge.RegisterImpl.CUSTOM_STATS;
+import static net.yorunina.maa.registry.Registration.STATS;
 
 @Mod(ModpackActuallyAdditions.MODID)
 public class ModpackActuallyAdditions {
     public static final String MODID = "maa";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
     public ModpackActuallyAdditions(FMLJavaModLoadingContext context) {
+        STATS.forEach((location, formatter) -> {
+            CUSTOM_STATS.register(location.getPath(), () -> location);
+        });
+
         IEventBus modEventBus = context.getModEventBus();
         modEventBus.addListener(this::commonInit);
         if (FMLEnvironment.dist == Dist.CLIENT) {
@@ -33,6 +44,9 @@ public class ModpackActuallyAdditions {
     private void commonInit(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             TasksRegistry.getInstance().init();
+            STATS.forEach((location, statFormatter) -> {
+                Stats.CUSTOM.get(location);
+            });
         });
     }
 
