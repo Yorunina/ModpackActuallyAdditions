@@ -21,4 +21,7 @@ public class MAAEvents {
             .server("ftbQuestCheckRepeatable", () -> FTBQuestCheckRepeatableJS.class).hasResult().extra(Extra.STRING);
     public static EventHandler FTB_CUSTOM_ITEM_FILTER = MAA_GROUP
             .server("ftbCustomItemFilter", () -> FTBCustomItemFilterJS.class).extra(Extra.STRING);
+    public static EventHandler VILLAGER_UPDATE_SPECIAL_PRICES = MAA_GROUP
+            .server("villagerUpdateSpecialPrices", () -> VillagerUpdateSpecialPrices.class);
+
 }

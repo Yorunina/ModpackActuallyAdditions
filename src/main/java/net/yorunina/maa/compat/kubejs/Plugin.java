@@ -7,6 +7,7 @@ import dev.latvian.mods.kubejs.script.BindingsEvent;
 import net.mehvahdjukaar.amendments.common.recipe.FluidAndItemCraftResult;
 import net.minecraft.stats.StatFormatter;
 import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.yorunina.maa.client.RenderHelper;
 import net.yorunina.maa.entities.AoeArrowEntity;
 import net.yorunina.maa.entities.SeekingArrowEntity;
@@ -35,5 +36,6 @@ public class Plugin extends KubeJSPlugin {
         event.add("Comparator", Comparator.class);
         event.add("StatFormatter", StatFormatter.class);
         event.add("MAARegistration", Registration.class);
+        event.add("EnchantmentHelper", EnchantmentHelper.class);
     }
 }
