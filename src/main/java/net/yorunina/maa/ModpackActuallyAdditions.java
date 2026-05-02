@@ -13,6 +13,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.yorunina.maa.client.entities.ClientRenderRegistry;
 import net.yorunina.maa.entities.MAAEntityRegistry;
 import net.yorunina.maa.items.ItemFiltersItems;
+import net.yorunina.maa.networks.MAAQuestNetHandler;
 import net.yorunina.maa.rewards.AARewardTypes;
 import net.yorunina.maa.tasks.TasksRegistry;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class ModpackActuallyAdditions {
         STATS.forEach((location, formatter) -> {
             CUSTOM_STATS.register(location.getPath(), () -> location);
         });
-
+        MAAQuestNetHandler.init();
         IEventBus modEventBus = context.getModEventBus();
         modEventBus.addListener(this::commonInit);
         if (FMLEnvironment.dist == Dist.CLIENT) {

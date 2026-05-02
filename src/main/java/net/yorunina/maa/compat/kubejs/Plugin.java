@@ -28,7 +28,6 @@ public class Plugin extends KubeJSPlugin {
         event.add("MAAUtils", MAAUtils.INSTANCE);
         event.add("FluidAndItemCraftResult", FluidAndItemCraftResult.class);
         event.add("ClickAction", ClickAction.class);
-        event.add("RenderHelper", RenderHelper.class);
         event.add("SeekingArrowEntity", SeekingArrowEntity.class);
         event.add("AoeArrowEntity", AoeArrowEntity.class);
         event.add("TeamData", TeamData.class);
@@ -37,5 +36,8 @@ public class Plugin extends KubeJSPlugin {
         event.add("StatFormatter", StatFormatter.class);
         event.add("MAARegistration", Registration.class);
         event.add("EnchantmentHelper", EnchantmentHelper.class);
+        if (event.getType().isClient()) {
+            event.add("RenderHelper", RenderHelper.INSTANCE);
+        }
     }
 }

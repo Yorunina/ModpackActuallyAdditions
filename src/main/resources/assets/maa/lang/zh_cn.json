@@ -1,4 +1,5 @@
 {
+  "ftbquests.chapter_image.hide_dependency": "隐藏所需依赖",
   "entity.maa.seeking_arrow": "追踪箭",
   "entity.maa.aoe_arrow": "范围箭",
   "ftbquests.task.maa.astages": "AStages任务",
@@ -29,6 +30,7 @@
   "ftbquests.task.maa.kube_text_input.textBoxRawTitle": "文本输入框标题",
   "ftbquests.task.maa.kube_text_input": "Kubejs文本输入",
   "ftbquests.task.maa.items": "物品",
+  "ftbquests.task.maa.auto_complete": "自动完成",
   "itemfilters.help_text.durability": "最大耐久度过滤器",
   "item.maa.durability": "最大耐久度过滤器",
   "itemfilters.help_text.tetra_effect_level": "<Effect> (>= || > || < || <= || ==) <int>",

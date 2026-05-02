@@ -1,4 +1,5 @@
 {
+  "ftbquests.chapter_image.hide_dependency": "Hide Dependency",
   "entity.maa.seeking_arrow": "Seeking Arrow",
   "entity.maa.aoe_arrow": "Aoe Arrow",
   "ftbquests.task.maa.astages": "AStages Task",
@@ -25,6 +26,7 @@
   "ftbquests.task.maa.kube.count": "Trigger Count",
   "ftbquests.task.maa.kube": "Trigger Kubejs",
   "ftbquests.task.maa.items": "Items",
+  "ftbquests.task.maa.auto_complete": "Auto Complete",
   "ftbquests.task.maa.kube_text_input.kubeId": "Event ID",
   "ftbquests.task.maa.kube_text_input.count": "Trigger Count",
   "ftbquests.task.maa.kube_text_input.textBoxRawTitle": "Text Input Box Title",
