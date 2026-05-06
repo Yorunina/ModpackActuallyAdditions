@@ -7,7 +7,9 @@
   "mixins": [
     "MixinAbstractSpell",
     "MixinAltarOfFireBlock",
+    "MixinBakeryStorageBlockEntity",
     "MixinBiome",
+    "MixinBreweryStorageBlockEntity",
     "MixinCauldronRecipeUtils",
     "MixinChapterImage",
     "MixinDimensionsNet",
@@ -29,6 +31,8 @@
     "MixinTeamManagerImpl",
     "MixinUnifiedStorage",
     "MixinVillager",
+    "MixinVineryStorageBlockEntity",
+    "accessor.TraderBlockEntityAccessor",
     "structure.MixinJigsawPlacement",
     "structure.MixinJigsawStructure",
     "structure.MixinPlaceCommand",

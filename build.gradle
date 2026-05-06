@@ -122,6 +122,9 @@ dependencies {
 
     implementation fg.deobf("curse.maven:cataclysm-forge-551586:7867528")
     implementation fg.deobf("curse.maven:irons-spells-n-spellbooks-855414:7907340")
+    implementation fg.deobf("curse.maven:lets-do-brewery-1038106:6847826")
+    implementation fg.deobf("curse.maven:lets-do-vinery-704465:6965751")
+    implementation fg.deobf("curse.maven:lets-do-bakery-1038130:6847992")
 
 //    implementation fg.deobf("curse.maven:beyonddimensions-1222890:7866951")
     implementation fg.deobf("blank:chestcavity-1.20.1:2.16.7")

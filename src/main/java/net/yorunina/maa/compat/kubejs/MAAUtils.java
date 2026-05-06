@@ -1,14 +1,19 @@
 package net.yorunina.maa.compat.kubejs;
 
 
+import com.mojang.brigadier.Command;
 import com.mojang.datafixers.util.Function3;
 import com.wintercogs.beyonddimensions.api.dimensionnet.DimensionsNet;
 import com.wintercogs.beyonddimensions.api.dimensionnet.NetRegistryIndex;
+import dev.ftb.mods.ftblibrary.snbt.SNBT;
 import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
 import dev.ftb.mods.ftbquests.quest.*;
 import dev.ftb.mods.ftbquests.quest.task.Task;
 import dev.ftb.mods.ftbquests.util.ProgressChange;
 
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -18,6 +23,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.yorunina.maa.tasks.KubeTask;
 import net.yorunina.maa.tasks.TasksRegistry;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -117,5 +123,12 @@ public class MAAUtils {
         } else {
             return remainingExp;
         }
+    }
+
+    public DimensionsNet createBDNetForPlayer(ServerPlayer target, @Nullable Long slotCapacityOverride, @Nullable Integer slotMaxSizeOverride)
+    {
+        long slotCapacity = (slotCapacityOverride != null) ? slotCapacityOverride : Long.MAX_VALUE;
+        int slotMaxSize = (slotMaxSizeOverride != null) ? slotMaxSizeOverride : Integer.MAX_VALUE;
+        return DimensionsNet.createNewNetForPlayer(target, slotCapacity, slotMaxSize);
     }
 }
