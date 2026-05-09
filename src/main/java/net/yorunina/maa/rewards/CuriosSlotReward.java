@@ -16,6 +16,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.yorunina.maa.utils.TypeUtil;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.server.command.CurioArgumentType;
 
@@ -76,11 +77,12 @@ public class CuriosSlotReward extends Reward {
     }
 
     public void claim(ServerPlayer player, boolean notify) {
+        UUID modifierId = UUID.nameUUIDFromBytes(TypeUtil.longToBytes(this.id));
         player.getCapability(CuriosCapability.INVENTORY).ifPresent(inv -> {
             if (this.isPermanent) {
-                inv.addPermanentSlotModifier(this.slot, UUID.randomUUID(), "TaskSlotModifier", this.count, AttributeModifier.Operation.ADDITION);
+                inv.addPermanentSlotModifier(this.slot, modifierId, "TaskSlotModifier", this.count, AttributeModifier.Operation.ADDITION);
             } else {
-                inv.addTransientSlotModifier(this.slot, UUID.randomUUID(), "TaskSlotModifier", this.count, AttributeModifier.Operation.ADDITION);
+                inv.addTransientSlotModifier(this.slot, modifierId, "TaskSlotModifier", this.count, AttributeModifier.Operation.ADDITION);
             }
         });
     }
