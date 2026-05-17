@@ -1,5 +1,9 @@
 package net.yorunina.maa.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundSetPassengersPacket;
@@ -7,6 +11,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.yorunina.maa.model.IPlayer;
+import org.checkerframework.common.aliasing.qual.Unique;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -58,5 +64,10 @@ public abstract class MixinServerPlayer extends Player {
         if (entity instanceof ServerPlayer playerEntity && cir.getReturnValue()) {
             playerEntity.connection.send(new ClientboundSetPassengersPacket(playerEntity));
         }
+    }
+
+    @ModifyExpressionValue(method = "restoreFrom", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z"))
+    private boolean restoreFromModifyExpressionValue(boolean bool, @Local(name = "p_9016_") ServerPlayer serverPlayer) {
+        return bool || ((IPlayer) serverPlayer).shouldKeepInventory();
     }
 }

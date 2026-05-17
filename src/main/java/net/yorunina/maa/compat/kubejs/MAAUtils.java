@@ -1,19 +1,13 @@
 package net.yorunina.maa.compat.kubejs;
 
 
-import com.mojang.brigadier.Command;
 import com.mojang.datafixers.util.Function3;
 import com.wintercogs.beyonddimensions.api.dimensionnet.DimensionsNet;
 import com.wintercogs.beyonddimensions.api.dimensionnet.NetRegistryIndex;
-import dev.ftb.mods.ftblibrary.snbt.SNBT;
-import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
 import dev.ftb.mods.ftbquests.quest.*;
 import dev.ftb.mods.ftbquests.quest.task.Task;
 import dev.ftb.mods.ftbquests.util.ProgressChange;
 
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -46,14 +40,14 @@ public class MAAUtils {
     public void resetPlayerTaskProgress(Player player) {
         if (player == null) return;
         TeamData teamData = ServerQuestFile.INSTANCE.getOrCreateTeamData(player);
-        ProgressChange change = new ProgressChange(ServerQuestFile.INSTANCE, teamData.getFile(), FTBQuestsClient.getClientPlayer().getUUID());
+        ProgressChange change = new ProgressChange(ServerQuestFile.INSTANCE, teamData.getFile(), player.getUUID());
         change.setReset(true);
         change.maybeForceProgress(teamData.getTeamId());
     }
 
     public void resetServerTaskProgress(MinecraftServer server) {
         ServerQuestFile.INSTANCE.getAllTeamData().forEach(teamData -> {
-            ProgressChange change = new ProgressChange(ServerQuestFile.INSTANCE, teamData.getFile(), FTBQuestsClient.getClientPlayer().getUUID());
+            ProgressChange change = new ProgressChange(ServerQuestFile.INSTANCE, teamData.getFile(), teamData.getTeamId());
             change.setReset(true);
             change.maybeForceProgress(teamData.getTeamId());
         });

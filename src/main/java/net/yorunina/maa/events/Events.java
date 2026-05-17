@@ -31,11 +31,6 @@ public class Events {
     }
 
     @SubscribeEvent
-    public static void onServerStarting(ServerStartingEvent event) {
-        MAAUtils.INSTANCE.resetInstance();
-    }
-
-    @SubscribeEvent
     public static void onBlockPlaced(BlockEvent.EntityPlaceEvent event) {
         BlockState blockState = event.getPlacedBlock();
         LevelAccessor pLevel = event.getLevel();

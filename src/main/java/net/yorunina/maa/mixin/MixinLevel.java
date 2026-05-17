@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Level.class)
 public class MixinLevel {
-
     @Inject(method = "getRainLevel", at = @At("HEAD"), cancellable = true)
     private void eternalWinter$modifyRainLevel(CallbackInfoReturnable<Float> cir) {
         if (MAAUtils.INSTANCE.shouldSnowContinuously()) {

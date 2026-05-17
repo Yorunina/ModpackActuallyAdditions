@@ -104,7 +104,7 @@ dependencies {
     implementation fg.deobf("curse.maven:moonlight-499980:7191950")
 
     implementation fg.deobf("curse.maven:curios-forge-309927:6418456")
-    implementation fg.deobf("curse.maven:ftb-quests-forge-289412:7909594")
+    implementation fg.deobf("curse.maven:ftb-quests-forge-289412:8078538")
     implementation fg.deobf("curse.maven:ftb-xmod-compat-889915:6402486")
     implementation fg.deobf("curse.maven:ftb-library-forge-404465:7293430")
     implementation fg.deobf("curse.maven:ftb-teams-forge-404468:7499810")
