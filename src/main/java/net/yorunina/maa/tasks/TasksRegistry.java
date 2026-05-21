@@ -24,6 +24,7 @@ public class TasksRegistry {
     public static final TaskType ASTAGES = TaskTypes.register(ModpackActuallyAdditions.id("astages"), AStageTask::new, () -> Icons.CONTROLLER);
     public static final TaskType DIM_NET = TaskTypes.register(ModpackActuallyAdditions.id("dim_net"), DimNetTask::new, () -> Icons.CONTROLLER);
     public static final TaskType EAT_ITEM = TaskTypes.register(ModpackActuallyAdditions.id("eat_item"), EatItemTask::new, () -> Icons.CONTROLLER);
+    public static final TaskType CLAIM_ITEM = TaskTypes.register(ModpackActuallyAdditions.id("claim_item"), ClaimItemTask::new, () -> Icons.CONTROLLER);
     public static final TaskType KUBE = TaskTypes.register(ModpackActuallyAdditions.id("kube"), KubeTask::new, () -> Icons.CONTROLLER);
     public static final TaskType KUBE_TEXT_INPUT = TaskTypes.register(ModpackActuallyAdditions.id("kube_text_input"), KubeTextInputTask::new, () -> Icons.CHAT);
     public static final TaskType AUTO_COMPLETE = TaskTypes.register(ModpackActuallyAdditions.id("auto_complete"), AutoCompleteTask::new, () -> Icons.ACCEPT);

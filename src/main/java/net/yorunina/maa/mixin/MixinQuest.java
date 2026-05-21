@@ -1,9 +1,11 @@
 package net.yorunina.maa.mixin;
 
+import dev.ftb.mods.ftbquests.quest.BaseQuestFile;
 import dev.ftb.mods.ftbquests.quest.Quest;
 import dev.ftb.mods.ftbquests.quest.QuestObject;
 import dev.ftb.mods.ftbquests.quest.TeamData;
 import net.yorunina.maa.compat.kubejs.events.FTBQuestCheckRepeatableJS;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,10 +44,12 @@ public abstract class MixinQuest {
             at = {@At(value = "INVOKE", target = "Ldev/ftb/mods/ftbquests/quest/Quest;forceProgress(Ldev/ftb/mods/ftbquests/quest/TeamData;Ldev/ftb/mods/ftbquests/util/ProgressChange;)V")},
             cancellable = true)
     public void checkRepeatable(TeamData data, UUID player, CallbackInfoReturnable<Boolean> cir) {
-        String codexID = String.format("%016X", this.getMovableID());
-        FTBQuestCheckRepeatableJS event = new FTBQuestCheckRepeatableJS(data, player, codexID);
-        if (FTB_QUEST_CHECK_REPEATABLE.post(event, codexID).arch().isFalse()) {
-            cir.setReturnValue(false);
+        if (data.getFile().isServerSide()) {
+            String codexID = String.format("%016X", this.getMovableID());
+            FTBQuestCheckRepeatableJS event = new FTBQuestCheckRepeatableJS(data, player, codexID);
+            if (FTB_QUEST_CHECK_REPEATABLE.post(event, codexID).arch().isFalse()) {
+                cir.setReturnValue(false);
+            }
         }
     }
 }

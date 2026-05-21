@@ -4,6 +4,9 @@ package net.yorunina.maa.compat.kubejs;
 import com.mojang.datafixers.util.Function3;
 import com.wintercogs.beyonddimensions.api.dimensionnet.DimensionsNet;
 import com.wintercogs.beyonddimensions.api.dimensionnet.NetRegistryIndex;
+import dev.ftb.mods.ftbquests.net.ClaimRewardResponseMessage;
+import dev.ftb.mods.ftbquests.net.ObjectCompletedMessage;
+import dev.ftb.mods.ftbquests.net.UpdateTaskProgressMessage;
 import dev.ftb.mods.ftbquests.quest.*;
 import dev.ftb.mods.ftbquests.quest.task.Task;
 import dev.ftb.mods.ftbquests.util.ProgressChange;
@@ -15,6 +18,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.yorunina.maa.networks.SyncEternalWinterMessage;
+import net.yorunina.maa.networks.SyncRepeatTaskCompletedMessage;
 import net.yorunina.maa.tasks.KubeTask;
 import net.yorunina.maa.tasks.TasksRegistry;
 import org.jetbrains.annotations.Nullable;
@@ -74,8 +79,13 @@ public class MAAUtils {
         return globalTemperature;
     }
 
-    public void setEternalWinterEnabled(boolean enabled) {
+    public void setEternalWinterEnabled(MinecraftServer server, boolean enabled) {
         eternalWinterEnabled = enabled;
+        new SyncEternalWinterMessage(enabled).sendToAll(server);
+    }
+
+    public void syncEternalWinterToPlayer(ServerPlayer player) {
+        new SyncEternalWinterMessage(eternalWinterEnabled).sendTo(player);
     }
 
     public boolean shouldSnowContinuously() {
@@ -124,5 +134,12 @@ public class MAAUtils {
         long slotCapacity = (slotCapacityOverride != null) ? slotCapacityOverride : Long.MAX_VALUE;
         int slotMaxSize = (slotMaxSizeOverride != null) ? slotMaxSizeOverride : Integer.MAX_VALUE;
         return DimensionsNet.createNewNetForPlayer(target, slotCapacity, slotMaxSize);
+    }
+
+    public void sendClientRepeatTaskCompleted(TeamData teamData, String taskId) {
+        new ObjectCompletedMessage(teamData.getTeamId(), Long.parseLong(taskId, 16)).sendTo(teamData.getOnlineMembers());
+    }
+    public void sendClientRepeatTaskClaimed(TeamData teamData, UUID playerId, String rewardId) {
+        new SyncRepeatTaskCompletedMessage(teamData.getTeamId(), playerId, Long.parseLong(rewardId, 16)).sendTo(teamData.getOnlineMembers());
     }
 }

@@ -58,6 +58,5 @@ public class KubeTextInputSubmitMessage extends BaseC2SMessage {
                 }
             }
         }
-
     }
 }

@@ -25,6 +25,7 @@
     "MixinIconAnimation",
     "MixinIconProperty",
     "MixinItemEntity",
+    "MixinItemStack",
     "MixinLevel",
     "MixinLivingEntity",
     "MixinPartyTeam",
