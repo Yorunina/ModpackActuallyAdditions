@@ -20,5 +20,4 @@ public class MAATags {
     public static <T> TagKey<T> tag(ResourceKey<? extends Registry<T>> registryKey, String path) {
         return TagKey.create(registryKey, ModpackActuallyAdditions.id(path));
     }
-
 }

@@ -4,6 +4,7 @@ package net.yorunina.maa.compat.kubejs;
 import com.mojang.datafixers.util.Function3;
 import com.wintercogs.beyonddimensions.api.dimensionnet.DimensionsNet;
 import com.wintercogs.beyonddimensions.api.dimensionnet.NetRegistryIndex;
+import dev.ftb.mods.ftbquests.events.QuestProgressEventData;
 import dev.ftb.mods.ftbquests.net.ObjectCompletedMessage;
 import dev.ftb.mods.ftbquests.quest.*;
 import dev.ftb.mods.ftbquests.quest.task.Task;
@@ -11,10 +12,13 @@ import dev.ftb.mods.ftbquests.util.ProgressChange;
 
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.protocol.game.ClientboundSetPassengersPacket;
+import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -53,6 +57,9 @@ public class MAAUtils {
         change.maybeForceProgress(teamData.getTeamId());
     }
 
+    public TeamData getPlayerTeamData(ServerPlayer player) {
+        return ServerQuestFile.INSTANCE.getOrCreateTeamData(player);
+    }
     public void resetServerTaskProgress(MinecraftServer server) {
         ServerQuestFile.INSTANCE.getAllTeamData().forEach(teamData -> {
             ProgressChange change = new ProgressChange(ServerQuestFile.INSTANCE, teamData.getFile(), teamData.getTeamId());
@@ -148,5 +155,19 @@ public class MAAUtils {
 
     public HolderSet<Structure> getStructureHolderSet(MinecraftServer server, ResourceLocation structureId) {
         return server.registryAccess().registryOrThrow(Registries.STRUCTURE).getHolder(ResourceKey.create(Registries.STRUCTURE, structureId)).map(HolderSet::direct).get();
+    }
+
+    public void setChapterCompleted(TeamData teamData, Quest quest) {
+        Collection<ServerPlayer> onlineMembers = teamData.getOnlineMembers();
+        Collection<ServerPlayer> notifiedPlayers;
+        if (!quest.getChapter().isAlwaysInvisible() && QuestObjectBase.shouldSendNotifications()) {
+            notifiedPlayers = onlineMembers;
+        } else {
+            notifiedPlayers = List.of();
+        }
+        QuestProgressEventData<Quest> progressEvent  = new QuestProgressEventData<>(new Date(), teamData, quest, onlineMembers, notifiedPlayers);
+        if (quest.getChapter() != null) {
+            quest.getChapter().onCompleted(progressEvent);
+        }
     }
 }

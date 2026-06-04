@@ -33,6 +33,7 @@
     "MixinPlayer",
     "MixinQuest",
     "MixinServerPlayer",
+    "MixinSkinLibrary",
     "MixinStageBarrierBlockEntity",
     "MixinTeamData",
     "MixinTeamManagerImpl",
