@@ -18,6 +18,7 @@
     "MixinEntity",
     "MixinExtractorBlockEntity",
     "MixinFoodData",
+    "MixinFTBChunks",
     "MixinGrindstoneBlock",
     "MixinHammerBaseBlockEntity",
     "MixinHoloMaterialApplicable",
