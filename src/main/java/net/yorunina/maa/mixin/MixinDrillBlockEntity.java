@@ -8,7 +8,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.yorunina.maa.ModpackActuallyAdditions;
 import net.yorunina.maa.model.IDrillBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -18,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.UUID;
 
-import static net.yorunina.maa.registry.Registration.EXCAVATE_TIMES_STAT;
+import static net.yorunina.maa.registry.MAAStats.EXCAVATE_TIMES_STAT;
 
 @Mixin(DrillBlockEntity.class)
 public abstract class MixinDrillBlockEntity extends SmartBlockEntity implements IDrillBlock {

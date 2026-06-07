@@ -7,7 +7,7 @@ import net.yorunina.maa.ModpackActuallyAdditions;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Registration {
+public class MAAStats {
     public static final Map<ResourceLocation, StatFormatter> STATS = new HashMap<>();
     public static final ResourceLocation EXCAVATE_TIMES_STAT = registerStats(ModpackActuallyAdditions.id("excavate_times"), StatFormatter.DEFAULT);
 

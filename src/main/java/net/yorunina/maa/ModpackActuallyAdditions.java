@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static io.github.mortuusars.exposure.forge.RegisterImpl.CUSTOM_STATS;
-import static net.yorunina.maa.registry.Registration.STATS;
+import static net.yorunina.maa.registry.MAAStats.STATS;
 
 @Mod(ModpackActuallyAdditions.MODID)
 public class ModpackActuallyAdditions {

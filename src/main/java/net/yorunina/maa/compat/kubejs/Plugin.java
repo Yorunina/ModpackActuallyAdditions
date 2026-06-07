@@ -11,7 +11,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.yorunina.maa.client.RenderHelper;
 import net.yorunina.maa.entities.AoeArrowEntity;
 import net.yorunina.maa.entities.SeekingArrowEntity;
-import net.yorunina.maa.registry.Registration;
+import net.yorunina.maa.registry.MAAStats;
 
 import java.util.Comparator;
 
@@ -34,7 +34,7 @@ public class Plugin extends KubeJSPlugin {
         event.add("QuestFile", QuestFile.class);
         event.add("Comparator", Comparator.class);
         event.add("StatFormatter", StatFormatter.class);
-        event.add("MAARegistration", Registration.class);
+        event.add("MAAStats", MAAStats.class);
         event.add("EnchantmentHelper", EnchantmentHelper.class);
         if (event.getType().isClient()) {
             event.add("RenderHelper", RenderHelper.INSTANCE);

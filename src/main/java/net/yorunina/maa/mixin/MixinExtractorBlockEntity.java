@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.UUID;
 
-import static net.yorunina.maa.registry.Registration.EXCAVATE_TIMES_STAT;
+import static net.yorunina.maa.registry.MAAStats.EXCAVATE_TIMES_STAT;
 
 @Mixin(ExtractorBlockEntity.class)
 public abstract class MixinExtractorBlockEntity extends SmartBlockEntity implements IDrillBlock {

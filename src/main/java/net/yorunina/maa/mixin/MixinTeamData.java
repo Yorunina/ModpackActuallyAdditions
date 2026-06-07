@@ -1,16 +1,23 @@
 package net.yorunina.maa.mixin;
 
+import dev.ftb.mods.ftbquests.quest.BaseQuestFile;
+import dev.ftb.mods.ftbquests.quest.ServerQuestFile;
 import dev.ftb.mods.ftbquests.quest.TeamData;
 import dev.ftb.mods.ftbquests.quest.reward.Reward;
 import dev.ftb.mods.ftbquests.util.QuestKey;
 import it.unimi.dsi.fastutil.longs.Long2LongMap;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
+import net.minecraft.server.level.ServerPlayer;
 import net.yorunina.maa.model.ITeamData;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.List;
 import java.util.UUID;
 
 @Mixin(value = TeamData.class, remap = false)
@@ -18,24 +25,26 @@ public abstract class MixinTeamData implements ITeamData {
     @Shadow
     @Final
     private Long2LongMap completed;
-
     @Shadow
     @Final
     private Long2LongMap started;
-
     @Shadow
     @Final
     private Object2LongMap<QuestKey> claimedRewards;
     @Shadow
     private boolean locked;
     @Shadow
-    public boolean isRewardBlocked(Reward reward) {
-        return false;
-    }
+    @Final
+    private BaseQuestFile file;
     @Shadow
-    public void markDirty() {}
+    @Final
+    private UUID teamId;
     @Shadow
-    public void clearCachedProgress() {}
+    public abstract boolean isRewardBlocked(Reward reward);
+    @Shadow
+    public abstract void markDirty();
+    @Shadow
+    public abstract void clearCachedProgress();
 
     @Unique
     public boolean isCompletedById(String id) {
@@ -61,5 +70,4 @@ public abstract class MixinTeamData implements ITeamData {
         }
         return false;
     }
-
 }
