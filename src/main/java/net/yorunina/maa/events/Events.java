@@ -15,6 +15,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.yorunina.maa.ModpackActuallyAdditions;
 import net.yorunina.maa.compat.kubejs.MAAUtils;
 import net.yorunina.maa.model.IDrillBlock;
+import net.yorunina.maa.registry.MAAGameRules;
 import net.yorunina.maa.tasks.TasksRegistry;
 
 @Mod.EventBusSubscriber(modid = ModpackActuallyAdditions.MODID)
@@ -61,5 +63,10 @@ public class Events {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             MAAUtils.INSTANCE.syncEternalWinterToPlayer(serverPlayer);
         }
+    }
+
+    @SubscribeEvent
+    public static void onServerStarted(ServerStartedEvent event) {
+        MAAGameRules.onServerLoaded(event.getServer());
     }
 }

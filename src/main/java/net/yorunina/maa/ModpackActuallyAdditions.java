@@ -1,6 +1,9 @@
 package net.yorunina.maa;
 
+import dev.architectury.event.events.common.LifecycleEvent;
+import dev.ftb.mods.ftbquests.quest.ServerQuestFile;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.stats.Stats;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -14,6 +17,7 @@ import net.yorunina.maa.client.entities.ClientRenderRegistry;
 import net.yorunina.maa.entities.MAAEntityRegistry;
 import net.yorunina.maa.items.ItemFiltersItems;
 import net.yorunina.maa.networks.MAAQuestNetHandler;
+import net.yorunina.maa.registry.MAAGameRules;
 import net.yorunina.maa.rewards.AARewardTypes;
 import net.yorunina.maa.tasks.TasksRegistry;
 import org.slf4j.Logger;
@@ -31,12 +35,10 @@ public class ModpackActuallyAdditions {
             CUSTOM_STATS.register(location.getPath(), () -> location);
         });
         MAAQuestNetHandler.init();
+        MAAGameRules.init();
         IEventBus modEventBus = context.getModEventBus();
         modEventBus.addListener(this::commonInit);
-        if (FMLEnvironment.dist == Dist.CLIENT) {
-            modEventBus.addListener(this::clientInit);
-        }
-
+        if (FMLEnvironment.dist == Dist.CLIENT) modEventBus.addListener(this::clientInit);
         AARewardTypes.init();
         ItemFiltersItems.register(modEventBus);
         MAAEntityRegistry.Defer.register(modEventBus);

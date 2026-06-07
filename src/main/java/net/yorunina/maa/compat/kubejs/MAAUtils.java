@@ -12,13 +12,10 @@ import dev.ftb.mods.ftbquests.util.ProgressChange;
 
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.protocol.game.ClientboundSetPassengersPacket;
-import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
