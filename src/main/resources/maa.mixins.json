@@ -13,7 +13,6 @@
     "MixinBreweryStorageBlockEntity",
     "MixinCauldronRecipeUtils",
     "MixinChapterImage",
-    "MixinClientQuestFile",
     "MixinCustomIconItem",
     "MixinDimensionsNet",
     "MixinDrillBlockEntity",
@@ -52,6 +51,7 @@
     "structure.packet.MixinServerboundSetStructureBlockPacket"
   ],
   "client": [
+    "MixinClientQuestFile",
     "MixinScreenEffectRenderer",
     "MixinWindow",
     "structure.MixinStructureBlockRenderer"
