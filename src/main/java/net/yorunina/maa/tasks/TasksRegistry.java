@@ -8,8 +8,6 @@ import dev.ftb.mods.ftbquests.quest.ServerQuestFile;
 import dev.ftb.mods.ftbquests.quest.TeamData;
 import dev.ftb.mods.ftbquests.quest.task.TaskType;
 import dev.ftb.mods.ftbquests.quest.task.TaskTypes;
-import dev.ftb.mods.ftbteams.api.Team;
-import dev.ftb.mods.ftbteams.data.TeamManagerImpl;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.yorunina.maa.ModpackActuallyAdditions;
@@ -61,9 +59,7 @@ public class TasksRegistry {
             this.eatItemTaskList = ServerQuestFile.INSTANCE.collect(EatItemTask.class);
         }
         if (this.eatItemTaskList.isEmpty()) return;
-        Team team = TeamManagerImpl.INSTANCE.getTeamForPlayer(player).orElse(null);
-        if (team == null) return;
-        TeamData teamData = ServerQuestFile.INSTANCE.getOrCreateTeamData(team);
+        TeamData teamData = ServerQuestFile.INSTANCE.getOrCreateTeamData(player);
         for (EatItemTask task : this.eatItemTaskList) {
             if (teamData.getProgress(task) < task.getMaxProgress() && teamData.canStartTasks(task.getQuest())) {
                 task.eat(teamData, player, food);
@@ -85,9 +81,7 @@ public class TasksRegistry {
             kubeTasks.addAll(this.kubeTaskMap.get(kubeId));
         }
         if (kubeTasks.isEmpty()) return;
-        Team team = TeamManagerImpl.INSTANCE.getTeamForPlayer(player).orElse(null);
-        if (team == null) return;
-        TeamData teamData = ServerQuestFile.INSTANCE.getOrCreateTeamData(team);
+        TeamData teamData = ServerQuestFile.INSTANCE.getOrCreateTeamData(player);
         kubeTasks.stream()
                 .filter(kubeTask -> teamData.getProgress(kubeTask) < kubeTask.getMaxProgress() && teamData.canStartTasks(kubeTask.getQuest()))
                 .forEach(kubeTask -> consumer.apply(kubeTask, player, teamData));

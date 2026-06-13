@@ -44,7 +44,7 @@ public class KubeTextInputSubmitMessage extends BaseC2SMessage {
 
     public void handle(NetworkManager.PacketContext context) {
         ServerPlayer player = (ServerPlayer)context.getPlayer();
-        TeamData data = TeamData.get(player);
+        TeamData data = ServerQuestFile.INSTANCE.getOrCreateTeamData(player);
         if (!data.isLocked()) {
             Task task = data.getFile().getTask(this.taskId);
             if (task != null) {
