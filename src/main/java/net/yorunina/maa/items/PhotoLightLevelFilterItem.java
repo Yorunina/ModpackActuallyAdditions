@@ -33,7 +33,7 @@ public class PhotoLightLevelFilterItem extends StringValueFilterItem {
             if (matcher.matches()) {
                 String operator = matcher.group(1);
                 check.lightLevel = Integer.parseInt(matcher.group(2));
-                check.mode = ItemFiltersItems.operation2Mode(operator);
+                check.mode = RegistryItems.operation2Mode(operator);
                 if (check.mode == -1) {
                     return null;
                 }
@@ -47,7 +47,7 @@ public class PhotoLightLevelFilterItem extends StringValueFilterItem {
                 return "";
             }
             StringBuilder builder = new StringBuilder();
-            builder.append(ItemFiltersItems.mode2Operation(lightLevelCheck.mode));
+            builder.append(RegistryItems.mode2Operation(lightLevelCheck.mode));
             builder.append(lightLevelCheck.lightLevel);
             return builder.toString();
         }

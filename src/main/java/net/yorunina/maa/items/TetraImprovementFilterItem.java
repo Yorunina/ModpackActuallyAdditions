@@ -5,7 +5,6 @@ import dev.latvian.mods.itemfilters.item.StringValueFilterItem;
 import net.minecraft.world.item.ItemStack;
 import se.mickelus.tetra.items.modular.ModularItem;
 import se.mickelus.tetra.module.ItemModuleMajor;
-import se.mickelus.tetra.module.data.ImprovementData;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -38,7 +37,7 @@ public class TetraImprovementFilterItem extends StringValueFilterItem {
                 String operator = matcher.group(2);
                 check.level = Integer.parseInt(matcher.group(3));
                 check.improvement = improvement;
-                check.mode = ItemFiltersItems.operation2Mode(operator);
+                check.mode = RegistryItems.operation2Mode(operator);
                 if (check.mode == -1) return null;
 
                 return check;
@@ -53,7 +52,7 @@ public class TetraImprovementFilterItem extends StringValueFilterItem {
             }
 
             return value.improvement +
-                    ItemFiltersItems.mode2Operation(value.mode) +
+                    RegistryItems.mode2Operation(value.mode) +
                     value.level;
         }
     }

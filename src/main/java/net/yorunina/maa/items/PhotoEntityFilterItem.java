@@ -51,7 +51,7 @@ public class PhotoEntityFilterItem extends StringValueFilterItem {
                             int count = Integer.parseInt(matcher.group(3));
                             check.entityId = entityId;
                             check.count = count;
-                            check.mode = ItemFiltersItems.operation2Mode(operator);
+                            check.mode = RegistryItems.operation2Mode(operator);
                             if (check.mode == -1) {
                                 return null;
                             }
@@ -70,7 +70,7 @@ public class PhotoEntityFilterItem extends StringValueFilterItem {
             StringBuilder builder = new StringBuilder();
             structureCheck.entities.forEach(entityCheck -> {
                 builder.append(entityCheck.entityId);
-                builder.append(ItemFiltersItems.mode2Operation(entityCheck.mode));
+                builder.append(RegistryItems.mode2Operation(entityCheck.mode));
                 builder.append(entityCheck.count);
             });
 

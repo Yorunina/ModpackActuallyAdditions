@@ -33,7 +33,7 @@ public class PhotoDayTimeFilterItem extends StringValueFilterItem {
             if (matcher.matches()) {
                 String operator = matcher.group(1);
                 check.dayTime = Integer.parseInt(matcher.group(2));
-                check.mode = ItemFiltersItems.operation2Mode(operator);
+                check.mode = RegistryItems.operation2Mode(operator);
                 if (check.mode == -1) {
                     return null;
                 }
@@ -46,7 +46,7 @@ public class PhotoDayTimeFilterItem extends StringValueFilterItem {
             if (dayTimeCheck == null) {
                 return "";
             }
-            return ItemFiltersItems.mode2Operation(dayTimeCheck.mode) +
+            return RegistryItems.mode2Operation(dayTimeCheck.mode) +
                     dayTimeCheck.dayTime;
         }
     }

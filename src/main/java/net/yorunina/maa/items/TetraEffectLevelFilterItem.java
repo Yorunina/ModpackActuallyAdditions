@@ -4,8 +4,6 @@ import dev.latvian.mods.itemfilters.item.StringValueData;
 import dev.latvian.mods.itemfilters.item.StringValueFilterItem;
 import net.minecraft.world.item.ItemStack;
 import se.mickelus.tetra.effect.ItemEffect;
-import se.mickelus.tetra.gui.stats.bar.GuiStatBar;
-import se.mickelus.tetra.gui.stats.getter.StatGetterEffectLevel;
 import se.mickelus.tetra.items.modular.ModularItem;
 import se.mickelus.tetra.module.data.EffectData;
 
@@ -40,7 +38,7 @@ public class TetraEffectLevelFilterItem extends StringValueFilterItem {
                 EffectLevelCheck check = new EffectLevelCheck();
 
                 check.effect = ItemEffect.get(effectId);
-                check.mode = ItemFiltersItems.operation2Mode(operator);
+                check.mode = RegistryItems.operation2Mode(operator);
                 if (check.mode == -1) {
                     return null;
                 }
@@ -57,7 +55,7 @@ public class TetraEffectLevelFilterItem extends StringValueFilterItem {
                 return "";
             }
             return value.effect.getKey() +
-                    ItemFiltersItems.mode2Operation(value.mode) +
+                    RegistryItems.mode2Operation(value.mode) +
                     value.level;
         }
     }

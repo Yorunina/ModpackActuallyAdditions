@@ -36,7 +36,7 @@ public class TetraToolActionFilterItem extends StringValueFilterItem {
                 String operator = matcher.group(2);
                 TetraToolActionCheck check = new TetraToolActionCheck();
                 check.toolAction = ToolAction.get(actionType);
-                check.mode = ItemFiltersItems.operation2Mode(operator);
+                check.mode = RegistryItems.operation2Mode(operator);
                 if (check.mode == -1) return null;
 
                 check.num = Integer.parseInt(matcher.group(3));
@@ -48,7 +48,7 @@ public class TetraToolActionFilterItem extends StringValueFilterItem {
         @Override
         protected String toString(TetraToolActionCheck value) {
             if (value == null) return null;
-            return value.toolAction.name() + ItemFiltersItems.mode2Operation(value.mode) +
+            return value.toolAction.name() + RegistryItems.mode2Operation(value.mode) +
                     value.num;
         }
     }

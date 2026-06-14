@@ -35,7 +35,7 @@ public class TetraPropFilterItem extends StringValueFilterItem {
                 String operator = matcher.group(2);
                 TetraPropCheck check = new TetraPropCheck();
                 check.propType = propType;
-                check.mode = ItemFiltersItems.operation2Mode(operator);
+                check.mode = RegistryItems.operation2Mode(operator);
                 if (check.mode == -1) return null;
 
                 check.num = Float.parseFloat(matcher.group(3));
@@ -47,7 +47,7 @@ public class TetraPropFilterItem extends StringValueFilterItem {
         @Override
         protected String toString(TetraPropCheck value) {
             if (value == null) return null;
-            return value.propType + ItemFiltersItems.mode2Operation(value.mode) +
+            return value.propType + RegistryItems.mode2Operation(value.mode) +
                     value.num;
         }
     }

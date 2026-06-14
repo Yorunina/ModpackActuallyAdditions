@@ -134,6 +134,7 @@ dependencies {
     implementation fg.deobf("curse.maven:armourers-workshop-229523:7165521")
     implementation fg.deobf("curse.maven:irons-lib-1492763:8207055")
     implementation fg.deobf("curse.maven:ars-nouveau-401955:6688854")
+    implementation fg.deobf("curse.maven:async-locator-625069:4603343")
 
 //    implementation fg.deobf("curse.maven:beyonddimensions-1222890:7866951")
     implementation fg.deobf("blank:chestcavity-1.20.1:2.16.7")

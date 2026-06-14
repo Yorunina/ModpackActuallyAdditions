@@ -10,25 +10,32 @@ import dev.ftb.mods.ftbquests.quest.*;
 import dev.ftb.mods.ftbquests.quest.task.Task;
 import dev.ftb.mods.ftbquests.util.ProgressChange;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.yorunina.maa.networks.SyncEternalWinterMessage;
 import net.yorunina.maa.networks.SyncRepeatTaskCompletedMessage;
 import net.yorunina.maa.tasks.KubeTask;
 import net.yorunina.maa.tasks.TasksRegistry;
+import net.yorunina.maa.utils.BiomeSearcher;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 
 public class MAAUtils {
@@ -37,6 +44,7 @@ public class MAAUtils {
     public float globalTemperature = -10;
     public boolean noFireRender = false;
 
+    private static final BiomeSearcher BIOME_SEARCHER = new BiomeSearcher();
     private MAAUtils() {
     }
 
@@ -150,8 +158,8 @@ public class MAAUtils {
         new SyncRepeatTaskCompletedMessage(teamData.getTeamId(), playerId, Long.parseLong(rewardId, 16)).sendTo(teamData.getOnlineMembers());
     }
 
-    public HolderSet<Structure> getStructureHolderSet(MinecraftServer server, ResourceLocation structureId) {
-        return server.registryAccess().registryOrThrow(Registries.STRUCTURE).getHolder(ResourceKey.create(Registries.STRUCTURE, structureId)).map(HolderSet::direct).get();
+    public Optional<HolderSet<Structure>> getStructureHolderSet(MinecraftServer server, ResourceLocation structureId) {
+        return server.registryAccess().registryOrThrow(Registries.STRUCTURE).getHolder(ResourceKey.create(Registries.STRUCTURE, structureId)).map(HolderSet::direct);
     }
 
     public void setChapterCompleted(TeamData teamData, Quest quest) {
@@ -166,5 +174,9 @@ public class MAAUtils {
         if (quest.getChapter() != null) {
             quest.getChapter().onCompleted(progressEvent);
         }
+    }
+
+    public UUID searchBiomeAsync(ServerLevel level, ResourceLocation targetBiome, BlockPos center, int maxRadius, Consumer<BlockPos> callback) {
+        return BIOME_SEARCHER.searchAsync(level, targetBiome, center, maxRadius, callback);
     }
 }

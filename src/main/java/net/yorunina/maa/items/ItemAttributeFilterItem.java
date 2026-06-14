@@ -1,18 +1,13 @@
 package net.yorunina.maa.items;
 
 import com.google.common.collect.Multimap;
-import dev.latvian.mods.itemfilters.api.StringValueFilterVariant;
 import dev.latvian.mods.itemfilters.item.StringValueData;
 import dev.latvian.mods.itemfilters.item.StringValueFilterItem;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -48,7 +43,7 @@ public class ItemAttributeFilterItem extends StringValueFilterItem {
                 Attribute attribute = ForgeRegistries.ATTRIBUTES.getValue(ResourceLocation.parse(attributeIdStr));
                 if (attribute == null) return null;
                 check.attribute = attribute;
-                check.mode = ItemFiltersItems.operation2Mode(operator);
+                check.mode = RegistryItems.operation2Mode(operator);
                 if (check.mode == -1) return null;
                 return check;
             }
@@ -63,7 +58,7 @@ public class ItemAttributeFilterItem extends StringValueFilterItem {
             ResourceLocation attributeId = ForgeRegistries.ATTRIBUTES.getKey(value.attribute);
             if (attributeId == null) return "";
 
-            return attributeId + ItemFiltersItems.mode2Operation(value.mode) + value.num;
+            return attributeId + RegistryItems.mode2Operation(value.mode) + value.num;
         }
     }
 

@@ -38,7 +38,7 @@ public class TetraEffectEfficiencyFilterItem extends StringValueFilterItem {
                 EffectEfficiencyCheck check = new EffectEfficiencyCheck();
 
                 check.effect = ItemEffect.get(effectId);
-                check.mode = ItemFiltersItems.operation2Mode(operator);
+                check.mode = RegistryItems.operation2Mode(operator);
                 if (check.mode == -1) {
                     return null;
                 }
@@ -56,7 +56,7 @@ public class TetraEffectEfficiencyFilterItem extends StringValueFilterItem {
             }
 
             return value.effect.getKey() +
-                    ItemFiltersItems.mode2Operation(value.mode) +
+                    RegistryItems.mode2Operation(value.mode) +
                     value.efficiency;
         }
     }

@@ -76,5 +76,15 @@
   "item.maa.chest_cavity_organ_score": "Chest Cavity Organ Score Filter",
   "itemfilters.help_text.tetra_scroll": "<Key>",
   "item.maa.tetra_scroll": "Tetra Scroll Filter",
+  "item.maa.structure_selector": "Structure Selector",
+  "item.maa.biome_selector": "Biome Selector",
+  "maa.selector.structure": "Structure",
+  "maa.selector.biome": "Biome",
+  "maa.tooltip.selector.current": "§7Current: §b",
+  "maa.tooltip.selector.scroll_switch": "§7Scroll to switch",
+  "maa.tooltip.selector.right_click_view": "§7Right click to view",
+  "maa.tooltip.selector.not_found": "§cNo",
+  "maa.tooltip.selector.total_count": "§8Total %s",
+  "maa.tooltip.selector.available": "§8available",
   "stat.maa.excavate_times": "Excavate Times"
 }

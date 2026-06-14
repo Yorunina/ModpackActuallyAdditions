@@ -36,7 +36,7 @@ public class ChestCavityOrganScoreFilterItem extends StringValueFilterItem {
                 check.organScore = ResourceLocation.parse(matcher.group(1));
                 String operator = matcher.group(2);
                 check.num = Float.parseFloat(matcher.group(3));
-                check.mode = ItemFiltersItems.operation2Mode(operator);
+                check.mode = RegistryItems.operation2Mode(operator);
                 if (check.mode == -1) {
                     return null;
                 }
@@ -50,7 +50,7 @@ public class ChestCavityOrganScoreFilterItem extends StringValueFilterItem {
             if (value == null || value.organScore == null) return "";
 
             return value.organScore +
-                    ItemFiltersItems.mode2Operation(value.mode) +
+                    RegistryItems.mode2Operation(value.mode) +
                     value.num;
         }
     }

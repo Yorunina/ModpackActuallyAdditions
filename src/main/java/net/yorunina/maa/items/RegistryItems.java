@@ -9,7 +9,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.yorunina.maa.ModpackActuallyAdditions;
 
 @Mod.EventBusSubscriber(modid = ModpackActuallyAdditions.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ItemFiltersItems {
+public class RegistryItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ModpackActuallyAdditions.MODID);
     public static final RegistryObject<Item> DURABILITY_ITEM_FILTER = ITEMS.register("durability", DurabilityFilterItem::new);
     public static final RegistryObject<Item> TETRA_EFFECT_LEVEL_FILTER = ITEMS.register("tetra_effect_level",
@@ -50,6 +50,12 @@ public class ItemFiltersItems {
             ChestCavityOrganScoreFilterItem::new);
     public static final RegistryObject<Item> TETRA_SCROLL_FILTER = ITEMS.register("tetra_scroll",
             TetraScrollFilterItem::new);
+
+    public static final RegistryObject<Item> STRUCTURE_SELECTOR = ITEMS.register("structure_selector",
+            () -> new StructureSelectorItem(new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> BIOME_SELECTOR = ITEMS.register("biome_selector",
+            () -> new BiomeSelectorItem(new Item.Properties().stacksTo(1)));
 
 
 
