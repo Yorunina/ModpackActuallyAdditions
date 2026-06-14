@@ -13,6 +13,8 @@ import java.util.List;
 
 public class StructureSelectorItem extends BaseSelectorItem {
     
+    public static final String REGISTRY_TYPE = "structure";
+    
     public StructureSelectorItem(Properties properties) {
         super(properties);
     }
@@ -42,7 +44,7 @@ public class StructureSelectorItem extends BaseSelectorItem {
     private Registry<Structure> getClientStructureRegistry() {
         net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
         if (mc.level != null) {
-            return mc.level.registryAccess().registryOrThrow(Registries.STRUCTURE);
+            return mc.level.registryAccess().registry(Registries.STRUCTURE).orElse(null);
         }
         return null;
     }
@@ -55,5 +57,10 @@ public class StructureSelectorItem extends BaseSelectorItem {
     @Override
     public Component getSelectorTypeName() {
         return Component.translatable("maa.selector.structure");
+    }
+    
+    @Override
+    public String getRegistryType() {
+        return REGISTRY_TYPE;
     }
 }

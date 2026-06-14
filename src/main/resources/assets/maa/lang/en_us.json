@@ -81,10 +81,13 @@
   "maa.selector.structure": "Structure",
   "maa.selector.biome": "Biome",
   "maa.tooltip.selector.current": "§7Current: §b",
-  "maa.tooltip.selector.scroll_switch": "§7Scroll to switch",
-  "maa.tooltip.selector.right_click_view": "§7Right click to view",
+  "maa.tooltip.selector.right_click_view": "§7Right click to open selector",
   "maa.tooltip.selector.not_found": "§cNo",
   "maa.tooltip.selector.total_count": "§8Total %s",
   "maa.tooltip.selector.available": "§8available",
+  "maa.screen.selector.search": "Search",
+  "maa.screen.selector.search_hint": "Type to search by name or ID...",
+  "maa.screen.selector.count": "Showing %d / %d",
+  "maa.screen.selector.empty": "No entries available",
   "stat.maa.excavate_times": "Excavate Times"
 }

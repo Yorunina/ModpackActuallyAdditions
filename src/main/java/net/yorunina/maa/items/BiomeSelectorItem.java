@@ -13,6 +13,8 @@ import java.util.List;
 
 public class BiomeSelectorItem extends BaseSelectorItem {
     
+    public static final String REGISTRY_TYPE = "biome";
+    
     public BiomeSelectorItem(Properties properties) {
         super(properties);
     }
@@ -42,7 +44,7 @@ public class BiomeSelectorItem extends BaseSelectorItem {
     private Registry<Biome> getClientBiomeRegistry() {
         net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
         if (mc.level != null) {
-            return mc.level.registryAccess().registryOrThrow(Registries.BIOME);
+            return mc.level.registryAccess().registry(Registries.BIOME).orElse(null);
         }
         return null;
     }
@@ -55,5 +57,10 @@ public class BiomeSelectorItem extends BaseSelectorItem {
     @Override
     public Component getSelectorTypeName() {
         return Component.translatable("maa.selector.biome");
+    }
+    
+    @Override
+    public String getRegistryType() {
+        return REGISTRY_TYPE;
     }
 }

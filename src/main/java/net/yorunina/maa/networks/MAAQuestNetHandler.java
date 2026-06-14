@@ -10,5 +10,7 @@ public interface MAAQuestNetHandler {
     MessageType SYNC_ETERNAL_WINTER = NET.registerS2C("sync_eternal_winter", SyncEternalWinterMessage::new);
     MessageType SYNC_REPEAT_TASK_COMPLETED = NET.registerS2C("sync_repeat_task_completed", SyncRepeatTaskCompletedMessage::new);
     MessageType SYNC_SELECTOR_ENTRY = NET.registerC2S("sync_selector_entry", SyncSelectorEntryMessage::new);
+    MessageType REQUEST_REGISTRY_ENTRIES = NET.registerC2S("request_registry_entries", RequestRegistryEntriesMessage::new);
+    MessageType SYNC_REGISTRY_ENTRIES = NET.registerS2C("sync_registry_entries", SyncRegistryEntriesMessage::new);
     static void init() {}
 }
