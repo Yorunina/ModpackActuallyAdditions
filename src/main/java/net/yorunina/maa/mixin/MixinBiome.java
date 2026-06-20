@@ -1,7 +1,6 @@
 package net.yorunina.maa.mixin;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.yorunina.maa.compat.kubejs.MAAUtils;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,13 +20,6 @@ public abstract class MixinBiome {
 
     @Inject(method = "hasPrecipitation", at = @At("HEAD"), cancellable = true)
     private void eternalWinter$hasPrecipitation(CallbackInfoReturnable<Boolean> cir) {
-        if (MAAUtils.INSTANCE.shouldSnowContinuously()) {
-            cir.setReturnValue(true);
-        }
-    }
-
-    @Inject(method = "shouldSnow", at = @At("HEAD"), cancellable = true)
-    private void eternalWinter$shouldSnow(LevelReader p_47520_, BlockPos p_47521_, CallbackInfoReturnable<Boolean> cir) {
         if (MAAUtils.INSTANCE.shouldSnowContinuously()) {
             cir.setReturnValue(true);
         }

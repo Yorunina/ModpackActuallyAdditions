@@ -125,6 +125,8 @@ dependencies {
     implementation(fg.deobf("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false })
     implementation(fg.deobf("net.createmod.ponder:Ponder-Forge-${minecraft_version}:${ponder_version}"))
     implementation fg.deobf("curse.maven:create-ore-excavation-649832:7152704")
+    implementation fg.deobf("curse.maven:arcane-convergence-1380925:7199085")
+    implementation fg.deobf("curse.maven:vanillabackport-417430:8229712")
 
     implementation fg.deobf("curse.maven:cataclysm-forge-551586:7867528")
     implementation fg.deobf("curse.maven:irons-spells-n-spellbooks-855414:7907340")
@@ -135,10 +137,12 @@ dependencies {
     implementation fg.deobf("curse.maven:irons-lib-1492763:8207055")
     implementation fg.deobf("curse.maven:ars-nouveau-401955:6688854")
     implementation fg.deobf("curse.maven:async-locator-625069:4603343")
+    implementation fg.deobf("curse.maven:geckolib-388172:6920925")
 
 //    implementation fg.deobf("curse.maven:beyonddimensions-1222890:7866951")
     implementation fg.deobf("blank:chestcavity-1.20.1:2.16.7")
     implementation fg.deobf("blank:beyonddimensions-1.20.1:0.7.12")
+    implementation fg.deobf("blank:GeoTetraArmor-1.20.1:1.0.4")
 }
 
 tasks.named('processResources', ProcessResources).configure {

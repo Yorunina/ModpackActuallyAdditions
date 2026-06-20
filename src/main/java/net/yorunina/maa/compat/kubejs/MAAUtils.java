@@ -25,13 +25,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.chunk.*;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.phys.AABB;
 import net.yorunina.maa.networks.SyncEternalWinterMessage;
 import net.yorunina.maa.networks.SyncRepeatTaskCompletedMessage;
 import net.yorunina.maa.tasks.KubeTask;
 import net.yorunina.maa.tasks.TasksRegistry;
 import net.yorunina.maa.utils.BiomeSearcher;
+import net.yorunina.maa.utils.VeinSearcher;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -44,7 +46,8 @@ public class MAAUtils {
     public float globalTemperature = -10;
     public boolean noFireRender = false;
 
-    private static final BiomeSearcher BIOME_SEARCHER = new BiomeSearcher();
+    public static final BiomeSearcher BIOME_SEARCHER = new BiomeSearcher();
+    public static final VeinSearcher VEIN_SEARCHER = new VeinSearcher();
     private MAAUtils() {
     }
 
@@ -178,5 +181,80 @@ public class MAAUtils {
 
     public UUID searchBiomeAsync(ServerLevel level, ResourceLocation targetBiome, BlockPos center, int maxRadius, Consumer<BlockPos> callback) {
         return BIOME_SEARCHER.searchAsync(level, targetBiome, center, maxRadius, callback);
+    }
+
+    public UUID searchVeinAsync(ServerLevel level, ResourceLocation targetVein, BlockPos center, int maxRadius, Consumer<BlockPos> callback) {
+        return VEIN_SEARCHER.searchAsync(level, targetVein, center, maxRadius, callback);
+    }
+
+    public void shutdownAllSearchers() {
+        BiomeSearcher.shutdown();
+        VeinSearcher.shutdown();
+    }
+
+    public void setBiomeInArea(ServerLevel level, AABB area, ResourceLocation biomeId) {
+        if (level == null || area == null || biomeId == null) {
+            return;
+        }
+
+        ResourceKey<Biome> biomeKey = ResourceKey.create(Registries.BIOME, biomeId);
+        Holder<Biome> biomeHolder = level.registryAccess()
+            .registryOrThrow(Registries.BIOME)
+            .getHolder(biomeKey)
+            .orElse(null);
+
+        if (biomeHolder == null) {
+            return;
+        }
+
+        int minX = (int) area.minX;
+        int minY = (int) area.minY;
+        int minZ = (int) area.minZ;
+        int maxX = (int) area.maxX;
+        int maxY = (int) area.maxY;
+        int maxZ = (int) area.maxZ;
+
+        List<ChunkAccess> affectedChunks = new ArrayList<>();
+        int minChunkX = minX >> 4;
+        int maxChunkX = maxX >> 4;
+        int minChunkZ = minZ >> 4;
+        int maxChunkZ = maxZ >> 4;
+
+        for (int cx = minChunkX; cx <= maxChunkX; cx++) {
+            for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
+                LevelChunk chunk = level.getChunk(cx, cz);
+                affectedChunks.add(chunk);
+
+                int chunkMinX = cx << 4;
+                int chunkMinZ = cz << 4;
+                int startX = Math.max(minX, chunkMinX);
+                int endX = Math.min(maxX, chunkMinX + 15);
+                int startZ = Math.max(minZ, chunkMinZ);
+                int endZ = Math.min(maxZ, chunkMinZ + 15);
+
+                for (int y = minY; y <= maxY; y++) {
+                    if (y < level.getMinBuildHeight() || y >= level.getMaxBuildHeight()) continue;
+                    int sectionIndex = chunk.getSectionIndex(y);
+                    LevelChunkSection section = chunk.getSection(sectionIndex);
+                    if (section == null) continue;
+
+                    for (int x = startX; x <= endX; x++) {
+                        for (int z = startZ; z <= endZ; z++) {
+                            setBiomeInSection(section, (x & 15) >> 2, (y & 15) >> 2, (z & 15) >> 2, biomeHolder);
+                        }
+                    }
+                }
+            }
+        }
+
+        level.getChunkSource().chunkMap.resendBiomesForChunks(affectedChunks);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void setBiomeInSection(LevelChunkSection section, int x, int y, int z, Holder<Biome> biomeHolder) {
+        PalettedContainerRO<Holder<Biome>> biomes = section.getBiomes();
+        if (biomes instanceof PalettedContainer<Holder<Biome>> writableBiomes) {
+            writableBiomes.getAndSet(x, y, z, biomeHolder);
+        }
     }
 }

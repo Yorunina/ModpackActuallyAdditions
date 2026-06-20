@@ -12,4 +12,9 @@ public abstract class MixinPatreonHandler {
     private void doDataFetchInject(CallbackInfo ci) {
         ci.cancel();
     }
+
+    @Inject(method = "initialize", at = @At("HEAD"), cancellable = true, remap = false)
+    private static void initialize(CallbackInfo ci) {
+        ci.cancel();
+    }
 }

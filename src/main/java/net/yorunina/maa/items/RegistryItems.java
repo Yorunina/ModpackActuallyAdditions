@@ -57,6 +57,9 @@ public class RegistryItems {
     public static final RegistryObject<Item> BIOME_SELECTOR = ITEMS.register("biome_selector",
             () -> new BiomeSelectorItem(new Item.Properties().stacksTo(1)));
 
+    public static final RegistryObject<Item> CREATE_ORE_EXCAVATION_SELECTOR = ITEMS.register("create_ore_excavation_selector",
+            () -> new OreExcavationSelectorItem(new Item.Properties().stacksTo(1)));
+
 
 
     public static int operation2Mode(String operator) {

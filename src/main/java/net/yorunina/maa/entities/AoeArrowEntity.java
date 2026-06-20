@@ -89,6 +89,7 @@ public class AoeArrowEntity extends AbstractArrow {
         AABB aabb = new AABB(this.getX() - this.aoeSize, this.getY() - this.aoeSize, this.getZ() - this.aoeSize,
                 this.getX() + this.aoeSize, this.getY() + this.aoeSize, this.getZ() + this.aoeSize);
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, aabb)) {
+            if (entity == this.getOwner()) continue;
             float damage = (float) (owner.getAttributeValue(Attributes.ATTACK_DAMAGE) * this.damageFactor);
             entity.hurt(level.damageSources().mobAttack(owner), damage);
         }
@@ -105,6 +106,7 @@ public class AoeArrowEntity extends AbstractArrow {
         AABB aabb = new AABB(this.getX() - this.aoeSize, this.getY() - this.aoeSize, this.getZ() - this.aoeSize,
                 this.getX() + this.aoeSize, this.getY() + this.aoeSize, this.getZ() + this.aoeSize);
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, aabb)) {
+            if (entity == this.getOwner()) continue;
             float damage = (float) (owner.getAttributeValue(Attributes.ATTACK_DAMAGE) * this.damageFactor);
             entity.hurt(level.damageSources().mobAttack(owner), damage);
         }
