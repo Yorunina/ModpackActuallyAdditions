@@ -19,5 +19,4 @@ public class MAAEvents {
             .server("ftbCustomItemFilter", () -> FTBCustomItemFilterJS.class).extra(Extra.STRING);
     public static EventHandler VILLAGER_UPDATE_SPECIAL_PRICES = MAA_GROUP
             .server("villagerUpdateSpecialPrices", () -> VillagerUpdateSpecialPrices.class);
-
 }

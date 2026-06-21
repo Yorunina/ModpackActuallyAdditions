@@ -1,20 +1,13 @@
 package net.yorunina.maa.items;
 
-import com.tom.createores.COECommand;
 import com.tom.createores.CreateOreExcavation;
 import com.tom.createores.recipe.VeinRecipe;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.server.ServerLifecycleHooks;
-import net.yorunina.maa.ModpackActuallyAdditions;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class OreExcavationSelectorItem extends BaseSelectorItem {
