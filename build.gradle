@@ -140,9 +140,7 @@ dependencies {
     implementation fg.deobf("curse.maven:geckolib-388172:6920925")
     implementation fg.deobf("curse.maven:compact-machines-224218:6000230")
 
-//    implementation fg.deobf("curse.maven:beyonddimensions-1222890:7866951")
     implementation fg.deobf("blank:chestcavity-1.20.1:2.16.7")
-    implementation fg.deobf("blank:beyonddimensions-1.20.1:0.7.12")
     implementation fg.deobf("blank:GeoTetraArmor-1.20.1:1.0.4")
 }
 

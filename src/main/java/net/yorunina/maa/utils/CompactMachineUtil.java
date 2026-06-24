@@ -116,6 +116,27 @@ public class CompactMachineUtil {
         return ItemStack.EMPTY;
     }
 
+    public static List<ItemStack> extractItemFromAllSlots(MinecraftServer server, ChunkPos room, Direction side, int amount, boolean simulate) {
+        if (amount <= 0) return Collections.emptyList();
+        List<ItemStack> extracted = new ArrayList<>();
+        LazyOptional<IItemHandler> handler = getItemHandler(server, room, side);
+        if (handler.isPresent()) {
+            Optional<IItemHandler> resolved = handler.resolve();
+            if (resolved.isPresent()) {
+                IItemHandler h = resolved.get();
+                int remaining = amount;
+                for (int i = 0; i < h.getSlots() && remaining > 0; i++) {
+                    ItemStack stack = h.extractItem(i, remaining, simulate);
+                    if (!stack.isEmpty()) {
+                        extracted.add(stack);
+                        remaining -= stack.getCount();
+                    }
+                }
+            }
+        }
+        return extracted;
+    }
+
     public static int fillFluid(MinecraftServer server, ChunkPos room, Direction side, FluidStack resource, IFluidHandler.FluidAction action) {
         LazyOptional<IFluidHandler> handler = getFluidHandler(server, room, side);
         if (handler.isPresent()) {

@@ -2,8 +2,6 @@ package net.yorunina.maa.compat.kubejs;
 
 
 import com.mojang.datafixers.util.Function3;
-import com.wintercogs.beyonddimensions.api.dimensionnet.DimensionsNet;
-import com.wintercogs.beyonddimensions.api.dimensionnet.NetRegistryIndex;
 import dev.ftb.mods.ftbquests.events.QuestProgressEventData;
 import dev.ftb.mods.ftbquests.net.ObjectCompletedMessage;
 import dev.ftb.mods.ftbquests.quest.*;
@@ -122,17 +120,6 @@ public class MAAUtils {
         return teamData.getFile().getTask(Long.parseLong(taskId, 16));
     }
 
-    public List<DimensionsNet> getAllDimNet(MinecraftServer server) {
-        if (server == null) return List.of();
-        List<DimensionsNet> nets = new ArrayList<>();
-        for (int netId : NetRegistryIndex.get(server).getActiveNetIds(server)) {
-            DimensionsNet net = DimensionsNet.getNetFromId(netId);
-            if (net != null) {
-                nets.add(net);
-            }
-        }
-        return nets;
-    }
 
     public int repairPlayerItems(Player player, int remainingExp, int initialValue) {
         Map.Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.getRandomItemWith(Enchantments.MENDING, player, ItemStack::isDamaged);
@@ -145,13 +132,6 @@ public class MAAUtils {
         } else {
             return remainingExp;
         }
-    }
-
-    public DimensionsNet createBDNetForPlayer(ServerPlayer target, @Nullable Long slotCapacityOverride, @Nullable Integer slotMaxSizeOverride)
-    {
-        long slotCapacity = (slotCapacityOverride != null) ? slotCapacityOverride : Long.MAX_VALUE;
-        int slotMaxSize = (slotMaxSizeOverride != null) ? slotMaxSizeOverride : Integer.MAX_VALUE;
-        return DimensionsNet.createNewNetForPlayer(target, slotCapacity, slotMaxSize);
     }
 
     public void sendClientRepeatTaskCompleted(TeamData teamData, String taskId) {
@@ -248,6 +228,21 @@ public class MAAUtils {
         }
 
         level.getChunkSource().chunkMap.resendBiomesForChunks(affectedChunks);
+    }
+
+    public String toRomanNumeral(double number) {
+        int value = (int) number;
+        if (value <= 0) return "";
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            while (value >= values[i]) {
+                value -= values[i];
+                sb.append(symbols[i]);
+            }
+        }
+        return sb.toString();
     }
 
     @SuppressWarnings("unchecked")

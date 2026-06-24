@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinIconProperty {
     @Inject(method = "parse(Ljava/lang/String;)Ldev/ftb/mods/ftblibrary/icon/Icon;", at = @At(value = "HEAD"), cancellable = true, remap = false)
     private void parse(String string, CallbackInfoReturnable<Icon> cir) {
-        ModpackActuallyAdditions.LOGGER.info("[ModpackActuallyAdditions] " + string);
         if (string.startsWith("{")) {
             JsonElement jsonElement = JsonParser.parseString(string);
             if  (jsonElement.isJsonNull()) {

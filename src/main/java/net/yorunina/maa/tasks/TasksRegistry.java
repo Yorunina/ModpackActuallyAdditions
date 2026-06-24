@@ -20,7 +20,6 @@ import java.util.Map;
 
 public class TasksRegistry {
     public static final TaskType ASTAGES = TaskTypes.register(ModpackActuallyAdditions.id("astages"), AStageTask::new, () -> Icons.CONTROLLER);
-    public static final TaskType DIM_NET = TaskTypes.register(ModpackActuallyAdditions.id("dim_net"), DimNetTask::new, () -> Icons.CONTROLLER);
     public static final TaskType EAT_ITEM = TaskTypes.register(ModpackActuallyAdditions.id("eat_item"), EatItemTask::new, () -> Icons.CONTROLLER);
     public static final TaskType CLAIM_ITEM = TaskTypes.register(ModpackActuallyAdditions.id("claim_item"), ClaimItemTask::new, () -> Icons.CONTROLLER);
     public static final TaskType KUBE = TaskTypes.register(ModpackActuallyAdditions.id("kube"), KubeTask::new, () -> Icons.CONTROLLER);
