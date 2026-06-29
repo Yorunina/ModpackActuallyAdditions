@@ -1,38 +1,49 @@
 package net.yorunina.maa.compat.kubejs;
 
 
+import com.hollingsworth.arsnouveau.common.util.PotionUtil;
 import com.mojang.datafixers.util.Function3;
+import com.simibubi.create.content.kinetics.saw.TreeCutter;
 import dev.ftb.mods.ftbquests.events.QuestProgressEventData;
 import dev.ftb.mods.ftbquests.net.ObjectCompletedMessage;
 import dev.ftb.mods.ftbquests.quest.*;
 import dev.ftb.mods.ftbquests.quest.task.Task;
 import dev.ftb.mods.ftbquests.util.ProgressChange;
 
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.*;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.yorunina.maa.networks.SyncEternalWinterMessage;
 import net.yorunina.maa.networks.SyncRepeatTaskCompletedMessage;
 import net.yorunina.maa.tasks.KubeTask;
 import net.yorunina.maa.tasks.TasksRegistry;
 import net.yorunina.maa.utils.BiomeSearcher;
 import net.yorunina.maa.utils.VeinSearcher;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -46,6 +57,7 @@ public class MAAUtils {
 
     public static final BiomeSearcher BIOME_SEARCHER = new BiomeSearcher();
     public static final VeinSearcher VEIN_SEARCHER = new VeinSearcher();
+
     private MAAUtils() {
     }
 
@@ -66,6 +78,7 @@ public class MAAUtils {
     public TeamData getPlayerTeamData(ServerPlayer player) {
         return ServerQuestFile.INSTANCE.getOrCreateTeamData(player);
     }
+
     public void resetServerTaskProgress(MinecraftServer server) {
         ServerQuestFile.INSTANCE.getAllTeamData().forEach(teamData -> {
             ProgressChange change = new ProgressChange(ServerQuestFile.INSTANCE, teamData.getFile(), teamData.getTeamId());
@@ -137,6 +150,7 @@ public class MAAUtils {
     public void sendClientRepeatTaskCompleted(TeamData teamData, String taskId) {
         new ObjectCompletedMessage(teamData.getTeamId(), Long.parseLong(taskId, 16)).sendTo(teamData.getOnlineMembers());
     }
+
     public void sendClientRepeatTaskClaimed(TeamData teamData, UUID playerId, String rewardId) {
         new SyncRepeatTaskCompletedMessage(teamData.getTeamId(), playerId, Long.parseLong(rewardId, 16)).sendTo(teamData.getOnlineMembers());
     }
@@ -153,7 +167,7 @@ public class MAAUtils {
         } else {
             notifiedPlayers = List.of();
         }
-        QuestProgressEventData<Quest> progressEvent  = new QuestProgressEventData<>(new Date(), teamData, quest, onlineMembers, notifiedPlayers);
+        QuestProgressEventData<Quest> progressEvent = new QuestProgressEventData<>(new Date(), teamData, quest, onlineMembers, notifiedPlayers);
         if (quest.getChapter() != null) {
             quest.getChapter().onCompleted(progressEvent);
         }
@@ -179,9 +193,9 @@ public class MAAUtils {
 
         ResourceKey<Biome> biomeKey = ResourceKey.create(Registries.BIOME, biomeId);
         Holder<Biome> biomeHolder = level.registryAccess()
-            .registryOrThrow(Registries.BIOME)
-            .getHolder(biomeKey)
-            .orElse(null);
+                .registryOrThrow(Registries.BIOME)
+                .getHolder(biomeKey)
+                .orElse(null);
 
         if (biomeHolder == null) {
             return;
@@ -251,5 +265,19 @@ public class MAAUtils {
         if (biomes instanceof PalettedContainer<Holder<Biome>> writableBiomes) {
             writableBiomes.getAndSet(x, y, z, biomeHolder);
         }
+    }
+
+    public Potion getPotionByTag(CompoundTag tag) {
+        return PotionUtils.getPotion(tag);
+    }
+
+    public void tryToChopTree(Level level, BlockPos spawnPos, BlockPos breakingPos, BlockState blockState) {
+        if (!blockState.is(BlockTags.LOGS)) return;
+        TreeCutter.findTree(level, breakingPos, blockState)
+                .destroyBlocks(level, null, (pPos, pStack) -> {
+                    Vec3 dropPos = VecHelper.getCenterOf(pPos);
+                    ItemEntity entity = new ItemEntity(level, dropPos.x, dropPos.y, dropPos.z, pStack);
+                    level.addFreshEntity(entity);
+                });
     }
 }

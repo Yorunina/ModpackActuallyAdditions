@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "maa.refmap.json",
   "mixins": [
+    "HarvesterMovementBehaviourMixin",
     "MixinAbstractSpell",
     "MixinAltarOfFireBlock",
     "MixinArsEvents",
