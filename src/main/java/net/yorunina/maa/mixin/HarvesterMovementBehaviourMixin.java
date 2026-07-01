@@ -29,12 +29,7 @@ public class HarvesterMovementBehaviourMixin {
 		}
 
 		if (world.getBlockEntity(pos) instanceof AgriCrop crop) {
-			if (crop.hasPlant() && crop.canBeHarvested()) {
-				MovementBehaviour behaviour = (MovementBehaviour) this;
-				crop.getHarvestProducts(stack -> behaviour.dropItem(context, stack));
-				crop.setGrowthStage(crop.getPlant().getGrowthStageAfterHarvest());
-				crop.getPlant().onHarvest(crop, null);
-			}
+            crop.harvest(stack -> ((MovementBehaviour) this).dropItem(context, stack), null);
 			ci.cancel();
 		}
 	}
