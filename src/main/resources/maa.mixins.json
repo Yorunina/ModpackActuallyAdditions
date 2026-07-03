@@ -35,6 +35,7 @@
     "MixinLevel",
     "MixinLivingEntity",
     "MixinMagicData",
+    "MixinModPotions",
     "MixinParrot",
     "MixinPatreonHandler",
     "MixinPiglinAi",
