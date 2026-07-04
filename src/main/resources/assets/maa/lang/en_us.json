@@ -91,5 +91,7 @@
   "maa.screen.selector.search_hint": "Type to search by name or ID...",
   "maa.screen.selector.count": "Showing %d / %d",
   "maa.screen.selector.empty": "No entries available",
-  "stat.maa.excavate_times": "Excavate Times"
+  "stat.maa.excavate_times": "Excavate Times",
+  "maa.jei.category.agri_soil": "AgriCraft Soil Information",
+  "maa.jei.agri_soil.growth_modifier": "Growth Modifier: %s"
 }

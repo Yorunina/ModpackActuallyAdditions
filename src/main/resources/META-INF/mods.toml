@@ -61,3 +61,15 @@ mandatory = true
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
+[[dependencies."${mod_id}"]]
+modId = "jei"
+mandatory = false
+versionRange = "[15,)"
+ordering = "AFTER"
+side = "CLIENT"
+[[dependencies."${mod_id}"]]
+modId = "agricraft"
+mandatory = false
+versionRange = "[4,)"
+ordering = "AFTER"
+side = "BOTH"
