@@ -13,6 +13,7 @@ import net.yorunina.maa.entities.AoeArrowEntity;
 import net.yorunina.maa.entities.SeekingArrowEntity;
 import net.yorunina.maa.registry.MAAStats;
 import net.yorunina.maa.utils.CompactMachineUtil;
+import net.yorunina.maa.utils.MobBattleUtil;
 
 import java.util.Comparator;
 
@@ -38,6 +39,7 @@ public class Plugin extends KubeJSPlugin {
         event.add("MAAStats", MAAStats.class);
         event.add("EnchantmentHelper", EnchantmentHelper.class);
         event.add("CompactMachineUtil", CompactMachineUtil.class);
+        event.add("MobBattleUtil", MobBattleUtil.class);
         if (event.getType().isClient()) {
             event.add("RenderHelper", RenderHelper.INSTANCE);
         }
