@@ -1,7 +1,6 @@
 package net.yorunina.maa.compat.kubejs;
 
 
-import com.hollingsworth.arsnouveau.common.util.PotionUtil;
 import com.mojang.datafixers.util.Function3;
 import com.simibubi.create.content.kinetics.saw.TreeCutter;
 import dev.ftb.mods.ftbquests.events.QuestProgressEventData;
@@ -14,7 +13,6 @@ import net.createmod.catnip.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
