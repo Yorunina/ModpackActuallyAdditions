@@ -41,6 +41,7 @@
     "MixinPiglinAi",
     "MixinPlayer",
     "MixinQuest",
+    "MixinRollCapHandler",
     "MixinSandPaperItem",
     "MixinServerPlayer",
     "MixinServerQuestFile",
