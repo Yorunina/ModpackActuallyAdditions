@@ -1,6 +1,7 @@
 package net.yorunina.maa.compat.kubejs;
 
 
+import com.agricraft.agricraft.common.block.entity.CropBlockEntity;
 import com.mojang.datafixers.util.Function3;
 import com.simibubi.create.content.kinetics.saw.TreeCutter;
 import dev.ftb.mods.ftbquests.events.QuestProgressEventData;
@@ -21,6 +22,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -36,6 +38,7 @@ import net.minecraft.world.level.chunk.*;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yorunina.maa.mixin.accessor.DrinkBlockItemAccessor;
 import net.yorunina.maa.networks.SyncEternalWinterMessage;
 import net.yorunina.maa.networks.SyncRepeatTaskCompletedMessage;
 import net.yorunina.maa.tasks.KubeTask;
@@ -43,6 +46,7 @@ import net.yorunina.maa.tasks.TasksRegistry;
 import net.yorunina.maa.utils.BiomeSearcher;
 import net.yorunina.maa.utils.VeinSearcher;
 
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -277,5 +281,12 @@ public class MAAUtils {
                     ItemEntity entity = new ItemEntity(level, dropPos.x, dropPos.y, dropPos.z, pStack);
                     level.addFreshEntity(entity);
                 });
+    }
+
+    public MobEffectInstance calculateEffectForQuality(ItemStack itemStack, int quality) {
+        if (itemStack.getItem() instanceof DrinkBlockItemAccessor drinkBlockItem) {
+            return drinkBlockItem.calculateEffect(quality);
+        }
+        return null;
     }
 }
