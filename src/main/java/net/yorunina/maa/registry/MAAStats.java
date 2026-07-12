@@ -10,6 +10,7 @@ import java.util.Map;
 public class MAAStats {
     public static final Map<ResourceLocation, StatFormatter> STATS = new HashMap<>();
     public static final ResourceLocation EXCAVATE_TIMES_STAT = registerStats(ModpackActuallyAdditions.id("excavate_times"), StatFormatter.DEFAULT);
+    public static final ResourceLocation CROPS_PLANTED_STAT = registerStats(ModpackActuallyAdditions.id("crops_planted"), StatFormatter.DEFAULT);
 
     private static ResourceLocation registerStats(ResourceLocation location, StatFormatter formatter) {
         STATS.put(location, formatter);
