@@ -8,7 +8,9 @@ import net.mehvahdjukaar.amendments.common.recipe.FluidAndItemCraftResult;
 import net.minecraft.stats.StatFormatter;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.unusual.block_factorys_bosses.capability.entity.RollCap;
 import net.yorunina.maa.client.RenderHelper;
+import net.yorunina.maa.client.vfx.PunchVFXManager;
 import net.yorunina.maa.entities.AoeArrowEntity;
 import net.yorunina.maa.entities.SeekingArrowEntity;
 import net.yorunina.maa.registry.MAAStats;
@@ -40,8 +42,10 @@ public class Plugin extends KubeJSPlugin {
         event.add("EnchantmentHelper", EnchantmentHelper.class);
         event.add("CompactMachineUtil", CompactMachineUtil.class);
         event.add("MobBattleUtil", MobBattleUtil.class);
+        event.add("RollCap", RollCap.class);
         if (event.getType().isClient()) {
             event.add("RenderHelper", RenderHelper.INSTANCE);
+            event.add("ShockwaveStyle", PunchVFXManager.ShockwaveStyle.class);
         }
     }
 }

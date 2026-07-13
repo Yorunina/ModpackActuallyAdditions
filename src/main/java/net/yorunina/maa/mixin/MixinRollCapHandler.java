@@ -5,7 +5,6 @@ import net.minecraft.world.entity.player.Player;
 import net.unusual.block_factorys_bosses.capability.entity.RollCap;
 import net.yorunina.maa.compat.kubejs.events.RollEventJS;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -13,27 +12,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static net.yorunina.maa.compat.kubejs.MAAEvents.PLAYER_ROLL;
 
-@Mixin(value = RollCap.RollCapHandler.class, remap = false)
+@Mixin(value = RollCap.RollCapHandler.class)
 public abstract class MixinRollCapHandler {
 
-    @Shadow
-    protected int roll;
-
-    @Inject(method = "startRoll", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "startRoll", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isSilent()Z"))
     private void onRoll(Player player, float leftImpulse, float forwardImpulse, CallbackInfoReturnable<Boolean> cir) {
         if (player.level().isClientSide()) {
             return;
         }
-        if (this.roll > -5) {
-            return;
-        }
-        if (!player.onGround()) {
-            return;
-        }
-
         RollCap.RollCapHandler.RollType direction = computeDirection(player, leftImpulse, forwardImpulse);
-
-        PLAYER_ROLL.post(new RollEventJS(player, leftImpulse, forwardImpulse, direction));
+        RollEventJS event = new RollEventJS(player, leftImpulse, forwardImpulse, direction);
+        PLAYER_ROLL.post(event);
     }
 
 

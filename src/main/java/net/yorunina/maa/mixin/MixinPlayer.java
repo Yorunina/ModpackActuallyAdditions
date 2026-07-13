@@ -3,8 +3,8 @@ package net.yorunina.maa.mixin;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.world.entity.player.Player;
 import net.yorunina.maa.model.IPlayer;
-import org.checkerframework.common.aliasing.qual.Unique;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(Player.class)
