@@ -1,5 +1,7 @@
 package net.yorunina.maa.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.unusual.block_factorys_bosses.capability.entity.RollCap;
@@ -24,6 +26,12 @@ public abstract class MixinRollCapHandler {
         RollEventJS event = new RollEventJS(player, leftImpulse, forwardImpulse, direction);
         PLAYER_ROLL.post(event);
     }
+
+    @WrapOperation(method = "startRoll", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onGround()Z"))
+    private boolean rollOnGround(Player instance, Operation<Boolean> original) {
+        return true;
+    }
+
 
 
     @Unique
