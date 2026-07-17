@@ -2,6 +2,11 @@ package net.yorunina.maa.compat.kubejs;
 
 
 import com.agricraft.agricraft.common.block.entity.CropBlockEntity;
+import com.github.L_Ender.cataclysm.capabilities.TidalTentacleCapability;
+import com.github.L_Ender.cataclysm.entity.projectile.Tidal_Tentacle_Entity;
+import com.github.L_Ender.cataclysm.entity.util.TidalTentacleUtil;
+import com.github.L_Ender.cataclysm.init.ModCapabilities;
+import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.mojang.datafixers.util.Function3;
 import com.simibubi.create.content.kinetics.saw.TreeCutter;
 import dev.ftb.mods.ftbquests.events.QuestProgressEventData;
@@ -23,7 +28,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -288,5 +296,26 @@ public class MAAUtils {
             return drinkBlockItem.calculateEffect(quality);
         }
         return null;
+    }
+
+    public boolean launchTendonsAt(LivingEntity playerIn, Entity closestValid) {
+        Level worldIn = playerIn.level();
+        TidalTentacleCapability.ITentacleCapability tentacleCapability = ModCapabilities.getCapability(playerIn, ModCapabilities.TENTACLE_CAPABILITY);
+        if (tentacleCapability != null && TidalTentacleUtil.canLaunchTentacles(worldIn, playerIn)) {
+            TidalTentacleUtil.retractFarTentacles(worldIn, playerIn);
+            if (!worldIn.isClientSide && closestValid != null) {
+                Tidal_Tentacle_Entity segment = (Tidal_Tentacle_Entity)((EntityType) ModEntities.TIDAL_TENTACLE.get()).create(worldIn);
+                segment.copyPosition(playerIn);
+                worldIn.addFreshEntity(segment);
+                segment.setCreatorEntityUUID(playerIn.getUUID());
+                segment.setFromEntityID(playerIn.getId());
+                segment.setToEntityID(closestValid.getId());
+                segment.copyPosition(playerIn);
+                segment.setProgress(0.0F);
+                TidalTentacleUtil.setLastTentacle(playerIn, segment);
+                return true;
+            }
+        }
+        return false;
     }
 }
