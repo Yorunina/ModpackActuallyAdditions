@@ -39,6 +39,7 @@
     "MixinItemStack",
     "MixinLevel",
     "MixinLivingEntity",
+    "MixinMaterialDossierShortcut",
     "MixinMaterialTooltipHandler",
     "MixinModPotions",
     "MixinParrot",

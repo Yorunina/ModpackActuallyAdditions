@@ -154,10 +154,11 @@ dependencies {
     implementation fg.deobf("curse.maven:mmmmmmmmmmmm-225738:7963208")
     implementation fg.deobf("curse.maven:leaderboards-1367888:8201372")
     implementation fg.deobf("curse.maven:biomancy-492939:7417643")
-    compileOnly files("libs/lootr-1.20.1-0.7.35.94-mapped.jar")
+    implementation fg.deobf("curse.maven:ftb-ultimine-forge-386134:7880472")
+    compileOnly fg.deobf("curse.maven:lootr-361276:7263076")
 
-    implementation fg.deobf("blank:chestcavity-1.20.1:2.16.7")
-    implementation fg.deobf("blank:astages-1.20.1:2.4.0")
+    implementation fg.deobf("curse.maven:chestcavity-1688710:8845362")
+    implementation fg.deobf("curse.maven:astages-1688761:8856131")
 
     compileOnly(fg.deobf("mezz.jei:jei-1.20.1-common-api:${jei_version}"))
     compileOnly(fg.deobf("mezz.jei:jei-1.20.1-forge-api:${jei_version}"))

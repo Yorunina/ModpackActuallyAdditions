@@ -9,6 +9,10 @@ import dev.ftb.mods.ftbquests.api.QuestFile;
 import dev.ftb.mods.ftbquests.quest.TeamData;
 import dev.latvian.mods.kubejs.KubeJSPlugin;
 import dev.latvian.mods.kubejs.script.BindingsEvent;
+import io.github.createdelight.tetrainsight.client.MaterialDossierShortcut;
+import io.github.createdelight.tetrainsight.client.MaterialInsightText;
+import io.github.createdelight.tetrainsight.integration.tetra.MaterialInsightIndex;
+import io.github.createdelight.tetrainsight.integration.tetra.TetraDataProbe;
 import net.mehvahdjukaar.amendments.common.recipe.FluidAndItemCraftResult;
 import net.minecraft.stats.StatFormatter;
 import net.minecraft.world.inventory.ClickAction;
@@ -49,11 +53,14 @@ public class Plugin extends KubeJSPlugin {
         event.add("LeaderboardFromStat", Leaderboard.FromStat.class);
         event.add("OfflinePlayerStats", OfflinePlayerStats.class);
         event.add("StatFormatters", StatFormatters.class);
-
         event.add("ServerAchieveStatTask", ServerAchieveStatTask.class);
         if (event.getType().isClient()) {
             event.add("RenderHelper", RenderHelper.INSTANCE);
             event.add("ShockwaveStyle", PunchVFXManager.ShockwaveStyle.class);
+            event.add("TetraDataProbe", TetraDataProbe.class);
+            event.add("MaterialInsightIndex", MaterialInsightIndex.class);
+            event.add("MaterialDossierShortcut", MaterialDossierShortcut.class);
+            event.add("MaterialInsightText", MaterialInsightText.class);
         }
     }
 }
