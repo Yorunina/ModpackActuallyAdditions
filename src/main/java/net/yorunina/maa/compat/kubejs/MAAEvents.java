@@ -25,4 +25,6 @@ public class MAAEvents {
             .server("fishingRetrieve", () -> FishingRetrieveEventJS.class).hasResult();
     public static EventHandler REGISTRY_LEADERBOARDS_EVENT = MAA_GROUP
             .startup("registryLeaderboards", () -> LeaderboardRegistryEventJS.class);
+    public static EventHandler CAN_ULTIMINE = MAA_GROUP
+            .common("canUltimine", () -> CanUltimineEventJS.class).hasResult();
 }

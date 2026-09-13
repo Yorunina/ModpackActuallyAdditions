@@ -91,6 +91,7 @@
   ],
   "client": [
     "MixinBossesRiseClientEvents",
+    "ftbultimine.MixinFTBUltimineClient",
     "MixinBossesRiseKeyMappings",
     "MixinClientQuestFile",
     "MixinGanderRenderTypeStore",

@@ -42,6 +42,9 @@ public class ModpackActuallyAdditions {
         if (ModList.get().isLoaded("leaderboards") && ModList.get().isLoaded("ftbquests")) {
             LeaderboardsCompat.init();
         }
+        if (ModList.get().isLoaded("ftbultimine")) {
+            net.yorunina.maa.compat.ftbultimine.FTBUltimineCompat.init();
+        }
         RegistryItems.register(modEventBus);
         MAAAttributes.ATTRIBUTES.register(modEventBus);
         MAAMenus.MENUS.register(modEventBus);
