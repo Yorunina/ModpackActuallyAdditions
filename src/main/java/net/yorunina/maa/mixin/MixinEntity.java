@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.yorunina.maa.MAATags;
 import net.yorunina.maa.model.IEntity;
 import net.yorunina.maa.model.ILivingEntityWearingGold;
+import net.yorunina.maa.model.MAAEntityData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -47,9 +48,6 @@ public abstract class MixinEntity implements IEntity {
     public boolean noFireDamage = false;
 
     @Unique
-    public boolean keepOutRain = false;
-
-    @Unique
     public void setNoFireDamage(boolean value) {
         this.noFireDamage = value;
     }
@@ -61,12 +59,17 @@ public abstract class MixinEntity implements IEntity {
 
     @Unique
     public boolean getKeepOutRain() {
-        return this.keepOutRain;
+        if ((Object) this instanceof LivingEntity living) {
+            return living.getEntityData().get(MAAEntityData.KEEP_OUT_RAIN);
+        }
+        return false;
     }
 
     @Unique
     public void setKeepOutRain(boolean value) {
-        this.keepOutRain = value;
+        if ((Object) this instanceof LivingEntity living) {
+            living.getEntityData().set(MAAEntityData.KEEP_OUT_RAIN, value);
+        }
     }
 
     @WrapOperation(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
@@ -121,7 +124,7 @@ public abstract class MixinEntity implements IEntity {
 
     @Inject(method = "isInRain", at = @At("HEAD"), cancellable = true)
     private void oriacs$checkUmbrella(CallbackInfoReturnable<Boolean> cir) {
-        if ((Object) this instanceof LivingEntity && this.keepOutRain) {
+        if (this.getKeepOutRain()) {
             cir.setReturnValue(false);
         }
     }
@@ -129,7 +132,7 @@ public abstract class MixinEntity implements IEntity {
     @Inject(method = "restoreFrom", at = @At("HEAD"))
     private void restoreFromInject(Entity p_20356_, CallbackInfo ci) {
         this.noFireDamage = ((IEntity) p_20356_).getNoFireDamage();
-        this.keepOutRain = ((IEntity) p_20356_).getKeepOutRain();
+        this.setKeepOutRain(((IEntity) p_20356_).getKeepOutRain());
         if (this instanceof ILivingEntityWearingGold wearingGoldEntity) {
             wearingGoldEntity.setWearingGold(((ILivingEntityWearingGold) p_20356_).isWearingGold());
         }
