@@ -56,6 +56,7 @@ import net.yorunina.maa.tasks.KubeTask;
 import net.yorunina.maa.tasks.TasksRegistry;
 import net.yorunina.maa.utils.BiomeSearcher;
 import net.yorunina.maa.utils.VeinSearcher;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -316,5 +317,37 @@ public class MAAUtils {
 
     public Entity getEntityByUUID(ServerLevel level, UUID uuid){
         return level.getEntities().get(uuid);
+    }
+
+    private static final Set<ResourceLocation> SHADER_ENTITIES = new HashSet<>();
+    private static final int ARENA_CHUNK_RADIUS = 2;
+
+    public void registerShaderEntity(String entityTypeId, String shaderName) {
+        SHADER_ENTITIES.add(new ResourceLocation(entityTypeId));
+    }
+
+    public static boolean hasShaderEntities() {
+        return !SHADER_ENTITIES.isEmpty();
+    }
+
+    public static boolean isShaderEntity(Entity entity) {
+        ResourceLocation id = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
+        return id != null && SHADER_ENTITIES.contains(id);
+    }
+
+    public void forceLoadArena(ServerLevel level) {
+        setArenaForced(level, true);
+    }
+
+    public void unloadArena(ServerLevel level) {
+        setArenaForced(level, false);
+    }
+
+    private void setArenaForced(ServerLevel level, boolean forced) {
+        for (int x = -ARENA_CHUNK_RADIUS; x <= ARENA_CHUNK_RADIUS; x++) {
+            for (int z = -ARENA_CHUNK_RADIUS; z <= ARENA_CHUNK_RADIUS; z++) {
+                level.setChunkForced(x, z, forced);
+            }
+        }
     }
 }

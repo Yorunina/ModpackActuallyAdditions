@@ -99,6 +99,7 @@
     "MixinWaypointEditorScreenRowPanel",
     "MixinWaypointMapIcon",
     "MixinWindow",
+    "accessor.PostChainAccessor",
     "structure.MixinStructureBlockRenderer"
   ],
   "injectors": {
