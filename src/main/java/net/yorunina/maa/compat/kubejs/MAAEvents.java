@@ -27,4 +27,6 @@ public class MAAEvents {
             .startup("registryLeaderboards", () -> LeaderboardRegistryEventJS.class);
     public static EventHandler CAN_ULTIMINE = MAA_GROUP
             .common("canUltimine", () -> CanUltimineEventJS.class).hasResult();
+    public static EventHandler LIGHTMANS_TERMINAL_VISIBILITY = MAA_GROUP
+            .common("lightmansTerminalVisibility", () -> LightmansTerminalVisibilityEventJS.class);
 }

@@ -73,6 +73,9 @@
     "biomancy.MixinPrimordialEaterFleshBlob",
     "biomancy.MixinRecipeCraftingStateData",
     "kubejs.MixinBasicMobEffect",
+    "lightmans.CPacketOpenTradesAccessor",
+    "lightmans.MixinCPacketOpenTradesHandler",
+    "lightmans.MixinTraderMenuAllNetwork",
     "kubejs.MixinItemBuilder",
     "kubejs.MixinMobEffectBuilder",
     "leaderboards.MixinLeaderboard",
@@ -92,6 +95,7 @@
   "client": [
     "MixinBossesRiseClientEvents",
     "ftbultimine.MixinFTBUltimineClient",
+    "lightmans.MixinNetworkTerminalScreen",
     "MixinBossesRiseKeyMappings",
     "MixinClientQuestFile",
     "MixinGanderRenderTypeStore",
