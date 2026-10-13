@@ -56,6 +56,12 @@ versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies."${mod_id}"]]
+modId = "playershells"
+mandatory = true
+versionRange = "[0.0.9,)"
+ordering = "AFTER"
+side = "BOTH"
+[[dependencies."${mod_id}"]]
 modId = "kubejs"
 mandatory = true
 versionRange = "[2001.6.5,)"
