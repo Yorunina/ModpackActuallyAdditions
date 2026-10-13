@@ -15,10 +15,10 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.registries.ForgeRegistries;
+import com.ultramega.playershells.PlayerShellsAPI;
 
 public class RogueHuntPavilionFeature extends Feature<NoneFeatureConfiguration> {
     private static final int PAVILION_Y = 64;
-    private static final int SAFE_DIST = 128;
     private static final ResourceLocation SHELL_FORGE_ID = ResourceLocation.fromNamespaceAndPath("playershells", "shell_forge");
     private static final int[][] CORNERS = {{-2, -2}, {-2, 2}, {2, -2}, {2, 2}};
 
@@ -37,21 +37,13 @@ public class RogueHuntPavilionFeature extends Feature<NoneFeatureConfiguration> 
         final BlockPos origin = new BlockPos(chunkPos.x * 16 + 8, PAVILION_Y, chunkPos.z * 16 + 8);
         stampFrame(level, origin);
         stampForge(level, origin);
+        PlayerShellsAPI.markGateway(level, origin);
         stampLanterns(level, origin);
         return true;
     }
 
     private static boolean shouldStamp(final int chunkX, final int chunkZ) {
-        if (!((chunkX == 0 && chunkZ == 0) || (isOdd(chunkX) && isOdd(chunkZ)))) {
-            return false;
-        }
-        final long originX = chunkX * 16L + 8L;
-        final long originZ = chunkZ * 16L + 8L;
-        return originX * originX + originZ * originZ <= (long) SAFE_DIST * SAFE_DIST;
-    }
-
-    private static boolean isOdd(final int value) {
-        return Math.floorMod(value, 2) == 1;
+        return chunkX == 0 && chunkZ == 0;
     }
 
     private static void stampFrame(final WorldGenLevel level, final BlockPos origin) {
