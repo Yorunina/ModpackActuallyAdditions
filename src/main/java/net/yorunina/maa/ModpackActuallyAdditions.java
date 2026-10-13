@@ -15,6 +15,7 @@ import net.yorunina.maa.compat.leaderboards.LeaderboardsCompat;
 import net.yorunina.maa.items.RegistryItems;
 import net.yorunina.maa.networks.MAAQuestNetHandler;
 import net.yorunina.maa.registry.MAAAttributes;
+import net.yorunina.maa.registry.MAAFeatures;
 import net.yorunina.maa.registry.MAAGameRules;
 import net.yorunina.maa.registry.MAAMenus;
 import net.yorunina.maa.rewards.AARewardTypes;
@@ -47,6 +48,7 @@ public class ModpackActuallyAdditions {
         }
         RegistryItems.register(modEventBus);
         MAAAttributes.ATTRIBUTES.register(modEventBus);
+        MAAFeatures.FEATURES.register(modEventBus);
         MAAMenus.MENUS.register(modEventBus);
     }
 
