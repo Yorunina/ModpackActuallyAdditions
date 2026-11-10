@@ -18,6 +18,7 @@ import net.minecraft.stats.StatFormatter;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.yorunina.maa.client.RenderHelper;
+import net.yorunina.maa.client.MAAClientEffects;
 import net.yorunina.maa.client.vfx.PunchVFXManager;
 import net.yorunina.maa.compat.leaderboards.ServerAchieveStatTask;
 import net.yorunina.maa.registry.MAAStats;
@@ -37,6 +38,7 @@ public class Plugin extends KubeJSPlugin {
     @Override
     public void registerBindings(BindingsEvent event) {
         event.add("MAAUtils", MAAUtils.INSTANCE);
+        event.add("MAADamageSources", MAADamageSources.INSTANCE);
         event.add("FluidAndItemCraftResult", FluidAndItemCraftResult.class);
         event.add("ClickAction", ClickAction.class);
         event.add("TeamData", TeamData.class);
@@ -55,6 +57,7 @@ public class Plugin extends KubeJSPlugin {
         event.add("StatFormatters", StatFormatters.class);
         event.add("ServerAchieveStatTask", ServerAchieveStatTask.class);
         if (event.getType().isClient()) {
+            event.add("MAAClientEffects", MAAClientEffects.class);
             event.add("RenderHelper", RenderHelper.INSTANCE);
             event.add("ShockwaveStyle", PunchVFXManager.ShockwaveStyle.class);
             event.add("TetraDataProbe", TetraDataProbe.class);

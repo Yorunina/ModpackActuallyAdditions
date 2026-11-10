@@ -16,6 +16,7 @@
     "MixinCauldronRecipeUtils",
     "MixinChapterImage",
     "MixinChimeraLeapRamGoal",
+    "MixinCitadel",
     "MixinClientBoundDamageNumberMessage",
     "MixinCreakingHeartBlockEntity",
     "MixinCropBlockEntity",
@@ -54,6 +55,7 @@
     "MixinSkinLibrary",
     "MixinStageBarrierBlockEntity",
     "MixinTeamData",
+    "MixinTectonicConfigHandler",
     "MixinTeleportFromMapPacket",
     "MixinThemeLoader",
     "MixinToolbeltContainer",
@@ -90,7 +92,8 @@
     "structure.MixinJigsawStructure",
     "structure.MixinPlaceCommand",
     "structure.MixinStructureBlockEntity",
-    "structure.packet.MixinServerboundSetStructureBlockPacket"
+    "structure.packet.MixinServerboundSetStructureBlockPacket",
+    "MixinServerItemCooldowns"
   ],
   "client": [
     "MixinBossesRiseClientEvents",
@@ -104,7 +107,12 @@
     "MixinWaypointMapIcon",
     "MixinWindow",
     "accessor.PostChainAccessor",
-    "structure.MixinStructureBlockRenderer"
+    "structure.MixinStructureBlockRenderer",
+    "MixinLocalPlayer",
+    "MixinMinecraft",
+    "MixinClientEntity",
+    "MixinPlanarSightRendering",
+    "MixinSpellbooksClientEvents"
   ],
   "injectors": {
     "defaultRequire": 1

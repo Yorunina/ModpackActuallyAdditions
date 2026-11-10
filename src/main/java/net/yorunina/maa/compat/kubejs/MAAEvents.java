@@ -7,6 +7,8 @@ import net.yorunina.maa.compat.kubejs.events.*;
 
 public class MAAEvents {
     public static EventGroup MAA_GROUP = EventGroup.of("MAAEvents");
+    public static EventHandler ITEM_COOLDOWN_STARTED = MAA_GROUP
+            .server("itemCooldownStarted", () -> ItemCooldownStartedEventJS.class);
     public static EventHandler TEXT_INPUT_TASK_SUBMIT = MAA_GROUP
             .server("textInputTaskSubmit", () -> TextInputTaskSubmitJS.class)
             .extra(Extra.STRING);

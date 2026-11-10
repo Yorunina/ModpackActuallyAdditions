@@ -11,6 +11,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.level.Level;
 import net.yorunina.maa.MAATags;
 import net.yorunina.maa.model.IEntity;
