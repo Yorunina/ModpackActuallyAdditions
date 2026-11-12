@@ -8,10 +8,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
 
-/** A script-created damage source with its own transient data. */
 public class ScriptDamageSource extends DamageSource implements IDamageSourceData {
     private CompoundTag customData;
+    private Map<String, Object> objectData;
 
     public ScriptDamageSource(Holder<DamageType> type, @Nullable Entity direct, @Nullable Entity attacker,
                               @Nullable Vec3 position) {
@@ -27,5 +29,25 @@ public class ScriptDamageSource extends DamageSource implements IDamageSourceDat
     @Override
     public boolean hasCustomData() {
         return customData != null && !customData.isEmpty();
+    }
+
+    @Nullable
+    public Object getObjectData(String key) {
+        return objectData == null ? null : objectData.get(key);
+    }
+
+    public void setObjectData(String key, @Nullable Object value) {
+        if (value == null) {
+            if (objectData != null) objectData.remove(key);
+            return;
+        }
+        if (objectData == null) objectData = new HashMap<>();
+        objectData.put(key, value);
+    }
+
+    public void copyObjectDataFrom(ScriptDamageSource source) {
+        if (source.objectData == null || source.objectData.isEmpty()) return;
+        if (objectData == null) objectData = new HashMap<>();
+        objectData.putAll(source.objectData);
     }
 }
