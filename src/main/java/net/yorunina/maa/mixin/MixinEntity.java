@@ -104,8 +104,8 @@ public abstract class MixinEntity implements IEntity {
         }
     }
 
-    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void maa$saveGlow(CompoundTag tag, CallbackInfo ci) {
+    @Inject(method = "saveWithoutId", at = @At("TAIL"))
+    private void maa$saveGlow(CompoundTag tag, CallbackInfoReturnable<Boolean> cir) {
         if (this.level().isClientSide) {
             return;
         }
@@ -117,7 +117,7 @@ public abstract class MixinEntity implements IEntity {
         tag.putInt("maa:glowEnd", this.getGlowEnd());
     }
 
-    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    @Inject(method = "load", at = @At("TAIL"))
     private void maa$readGlow(CompoundTag tag, CallbackInfo ci) {
         if (this.level().isClientSide) {
             return;
