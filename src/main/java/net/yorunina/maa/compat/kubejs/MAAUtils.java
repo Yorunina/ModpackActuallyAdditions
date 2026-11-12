@@ -49,6 +49,7 @@ import net.minecraft.world.level.chunk.*;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yorunina.maa.glow.MAAGlow;
 import net.yorunina.maa.mixin.accessor.DrinkBlockItemAccessor;
 import net.yorunina.maa.networks.SyncEternalWinterMessage;
 import net.yorunina.maa.networks.SyncRepeatTaskCompletedMessage;
@@ -333,6 +334,26 @@ public class MAAUtils {
     public static boolean isShaderEntity(Entity entity) {
         ResourceLocation id = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
         return id != null && SHADER_ENTITIES.contains(id);
+    }
+
+    /**
+     * 给实体设置描边颜色。
+     *
+     * @param entity  目标实体（仅生物实体支持描边）
+     * @param rgb     24 位 RGB，例如 0xFF3B30
+     * @param seconds 持续秒数，<= 0 表示永久
+     */
+    public void setGlowColor(Entity entity, int rgb, int seconds) {
+        MAAGlow.set(entity, rgb, seconds);
+    }
+
+    public void clearGlowColor(Entity entity) {
+        MAAGlow.clear(entity);
+    }
+
+    /** 当前有效描边颜色（RGB）；未设置或已过期返回 0。 */
+    public int getGlowColor(Entity entity) {
+        return MAAGlow.getActiveRgb(entity);
     }
 
     public void forceLoadArena(ServerLevel level) {

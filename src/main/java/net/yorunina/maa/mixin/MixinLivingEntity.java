@@ -26,6 +26,12 @@ public abstract class MixinLivingEntity implements ILivingEntityWearingGold, ILi
     private static final EntityDataAccessor<Boolean> maa$KEEP_OUT_RAIN = MAAEntityData.KEEP_OUT_RAIN;
 
     @Unique
+    private static final EntityDataAccessor<Integer> maa$GLOW_RGB = MAAEntityData.GLOW_RGB;
+
+    @Unique
+    private static final EntityDataAccessor<Integer> maa$GLOW_END = MAAEntityData.GLOW_END;
+
+    @Unique
     private boolean isWearingGold = false;
 
     @Unique
@@ -54,5 +60,7 @@ public abstract class MixinLivingEntity implements ILivingEntityWearingGold, ILi
     @Inject(method = "defineSynchedData", at = @At("RETURN"))
     private void maa$defineKeepOutRain(CallbackInfo ci) {
         ((LivingEntity) (Object) this).getEntityData().define(maa$KEEP_OUT_RAIN, false);
+        ((LivingEntity) (Object) this).getEntityData().define(maa$GLOW_RGB, 0);
+        ((LivingEntity) (Object) this).getEntityData().define(maa$GLOW_END, 0);
     }
 }

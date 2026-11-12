@@ -2,6 +2,7 @@ package net.yorunina.maa.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundSetPassengersPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -73,6 +74,61 @@ public abstract class MixinEntity implements IEntity {
         }
     }
 
+    @Override
+    public int getGlowRgb() {
+        if ((Object) this instanceof LivingEntity living) {
+            return living.getEntityData().get(MAAEntityData.GLOW_RGB);
+        }
+        return 0;
+    }
+
+    @Override
+    public void setGlowRgb(int rgb) {
+        if ((Object) this instanceof LivingEntity living) {
+            living.getEntityData().set(MAAEntityData.GLOW_RGB, rgb & 0xFFFFFF);
+        }
+    }
+
+    @Override
+    public int getGlowEnd() {
+        if ((Object) this instanceof LivingEntity living) {
+            return living.getEntityData().get(MAAEntityData.GLOW_END);
+        }
+        return 0;
+    }
+
+    @Override
+    public void setGlowEnd(int endSecond) {
+        if ((Object) this instanceof LivingEntity living) {
+            living.getEntityData().set(MAAEntityData.GLOW_END, endSecond);
+        }
+    }
+
+    /** 描边状态只在服务端写入存档，客户端实体由同步数据驱动。 */
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void maa$saveGlow(CompoundTag tag, CallbackInfo ci) {
+        if (this.level().isClientSide) {
+            return;
+        }
+        int rgb = this.getGlowRgb();
+        if (rgb == 0) {
+            return;
+        }
+        tag.putInt("maa:glowRgb", rgb);
+        tag.putInt("maa:glowEnd", this.getGlowEnd());
+    }
+
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void maa$readGlow(CompoundTag tag, CallbackInfo ci) {
+        if (this.level().isClientSide) {
+            return;
+        }
+        if (tag.contains("maa:glowRgb")) {
+            this.setGlowEnd(tag.getInt("maa:glowEnd"));
+            this.setGlowRgb(tag.getInt("maa:glowRgb"));
+        }
+    }
+
     @WrapOperation(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
     private boolean baseTickHut(Entity instance, DamageSource p_19946_, float p_19947_, Operation<Boolean> original) {
         if (noFireDamage) return true;
@@ -134,6 +190,8 @@ public abstract class MixinEntity implements IEntity {
     private void restoreFromInject(Entity p_20356_, CallbackInfo ci) {
         this.noFireDamage = ((IEntity) p_20356_).getNoFireDamage();
         this.setKeepOutRain(((IEntity) p_20356_).getKeepOutRain());
+        this.setGlowEnd(((IEntity) p_20356_).getGlowEnd());
+        this.setGlowRgb(((IEntity) p_20356_).getGlowRgb());
         if (this instanceof ILivingEntityWearingGold wearingGoldEntity) {
             wearingGoldEntity.setWearingGold(((ILivingEntityWearingGold) p_20356_).isWearingGold());
         }
