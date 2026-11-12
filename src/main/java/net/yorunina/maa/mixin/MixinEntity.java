@@ -104,7 +104,6 @@ public abstract class MixinEntity implements IEntity {
         }
     }
 
-    /** 描边状态只在服务端写入存档，客户端实体由同步数据驱动。 */
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void maa$saveGlow(CompoundTag tag, CallbackInfo ci) {
         if (this.level().isClientSide) {
