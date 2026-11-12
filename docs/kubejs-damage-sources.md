@@ -28,12 +28,13 @@ MAADamageSources.register('kubejs:example', 'minecraft:player_attack')
 - `MAADamageSources.supportsData(source)`：判断来源是否实现数据接口；原版普通来源为 false。
 - 支持该能力的 `source.customData` / `source.getCustomData()`：返回可读写的 `CompoundTag`，首次读取时创建。
 - `source.hasCustomData()`：判断是否有非空自定义数据，不会创建容器。
-- `source.getObjectData(key)` / `source.setObjectData(key, value)`：按实例保存任意 Java 对象引用，不经过 NBT。`value` 传 `null` 等同移除。
+- `source.getItemData(key)` / `source.setItemData(key, stack)`：按实例保存 `ItemStack`，不经过 NBT。传入 `null` 等同移除。
 - 数据属于该 Java 实例，不会自动保存到世界或同步到客户端。
 - 工厂每次创建独立实例，不向原版缓存来源写入数据。
 
-NBT 容器适合布尔、数字、字符串这类可序列化的短字段；`ItemStack` 这类复杂对象用 `setObjectData`
-直接存引用（存入前自行 `copy()`，避免和活体共享可变状态），不需要 `save` / `of` 往返。
+NBT 容器适合布尔、数字、字符串这类可序列化的短字段；`ItemStack` 用 `setItemData` 直接存对象
+（存入前自行 `copy()`，避免和活体共享可变状态），不需要 `save` / `of` 往返。复制来源时这些
+`ItemStack` 会逐个 `copy()`，副本与原来源不共享实例。
 
 ## 创建与复制
 
@@ -63,7 +64,7 @@ let source = MAADamageSources.create(target.level, 'kubejs:example', attacker)
 let data = source.customData
 data.putString('kind', 'example_segment')
 data.putBoolean('full_charge', true)
-source.setObjectData('weapon', attacker.mainHandItem.copy())
+source.setItemData('weapon', attacker.mainHandItem.copy())
 target.attack(source, 10)
 ```
 
@@ -75,7 +76,7 @@ if (!MAADamageSources.supportsData(source)) return
 let data = source.customData
 if (data.getString('kind') != 'example_segment') return
 let fullCharge = data.getBoolean('full_charge')
-let weapon = source.getObjectData('weapon') ?? attacker.mainHandItem
+let weapon = source.getItemData('weapon') ?? attacker.mainHandItem
 ```
 
 复制后只改副本：
@@ -86,8 +87,7 @@ let derived = MAADamageSources.copy(source)
 derived.customData.putString('kind', 'another_segment')
 ```
 
-`copy` 会一并复制对象数据（浅拷贝，引用同一个对象）；需要在副本里改写对象时，重新
-`setObjectData` 一个新实例。
+`copy` 会一并复制物品数据，并对每个 `ItemStack` 调用 `copy()`，副本可独立修改。
 
 数据包定义并在 startup 注册 `kubejs:damage_echo` 后，可以用该 ID 创建实例；
 或调用 `copyWithType(target.level, 'kubejs:damage_echo', source)` 复制已有的 MAA 脚本来源。

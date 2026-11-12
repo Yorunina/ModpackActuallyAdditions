@@ -5,6 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -13,7 +14,7 @@ import java.util.Map;
 
 public class ScriptDamageSource extends DamageSource implements IDamageSourceData {
     private CompoundTag customData;
-    private Map<String, Object> objectData;
+    private Map<String, ItemStack> itemData;
 
     public ScriptDamageSource(Holder<DamageType> type, @Nullable Entity direct, @Nullable Entity attacker,
                               @Nullable Vec3 position) {
@@ -32,22 +33,22 @@ public class ScriptDamageSource extends DamageSource implements IDamageSourceDat
     }
 
     @Nullable
-    public Object getObjectData(String key) {
-        return objectData == null ? null : objectData.get(key);
+    public ItemStack getItemData(String key) {
+        return itemData == null ? null : itemData.get(key);
     }
 
-    public void setObjectData(String key, @Nullable Object value) {
-        if (value == null) {
-            if (objectData != null) objectData.remove(key);
+    public void setItemData(String key, @Nullable ItemStack stack) {
+        if (stack == null) {
+            if (itemData != null) itemData.remove(key);
             return;
         }
-        if (objectData == null) objectData = new HashMap<>();
-        objectData.put(key, value);
+        if (itemData == null) itemData = new HashMap<>();
+        itemData.put(key, stack);
     }
 
-    public void copyObjectDataFrom(ScriptDamageSource source) {
-        if (source.objectData == null || source.objectData.isEmpty()) return;
-        if (objectData == null) objectData = new HashMap<>();
-        objectData.putAll(source.objectData);
+    public void copyItemDataFrom(ScriptDamageSource source) {
+        if (source.itemData == null || source.itemData.isEmpty()) return;
+        if (itemData == null) itemData = new HashMap<>();
+        source.itemData.forEach((key, stack) -> itemData.put(key, stack.copy()));
     }
 }
