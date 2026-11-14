@@ -7,4 +7,10 @@ public interface IEntity {
     boolean getNoFireDamage();
     void setKeepOutRain(boolean value);
     boolean getKeepOutRain();
+
+    int getGlowRgb();
+    void setGlowRgb(int rgb);
+
+    int getGlowEnd();
+    void setGlowEnd(int endSecond);
 }

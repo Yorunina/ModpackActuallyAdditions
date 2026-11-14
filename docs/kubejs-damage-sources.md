@@ -28,8 +28,13 @@ MAADamageSources.register('kubejs:example', 'minecraft:player_attack')
 - `MAADamageSources.supportsData(source)`：判断来源是否实现数据接口；原版普通来源为 false。
 - 支持该能力的 `source.customData` / `source.getCustomData()`：返回可读写的 `CompoundTag`，首次读取时创建。
 - `source.hasCustomData()`：判断是否有非空自定义数据，不会创建容器。
+- `source.getItemData(key)` / `source.setItemData(key, stack)`：按实例保存 `ItemStack`，不经过 NBT。传入 `null` 等同移除。
 - 数据属于该 Java 实例，不会自动保存到世界或同步到客户端。
 - 工厂每次创建独立实例，不向原版缓存来源写入数据。
+
+NBT 容器适合布尔、数字、字符串这类可序列化的短字段；`ItemStack` 用 `setItemData` 直接存对象
+（存入前自行 `copy()`，避免和活体共享可变状态），不需要 `save` / `of` 往返。复制来源时这些
+`ItemStack` 会逐个 `copy()`，副本与原来源不共享实例。
 
 ## 创建与复制
 
@@ -57,9 +62,9 @@ MAADamageSources.register('kubejs:example', 'minecraft:player_attack')
 // 对应上方注册的 kubejs:example。
 let source = MAADamageSources.create(target.level, 'kubejs:example', attacker)
 let data = source.customData
-data.putString('ribcage:kind', 'example_segment')
-data.putBoolean('ribcage:full_charge', true)
-data.put('ribcage:weapon', attacker.mainHandItem.save(new $CompoundTag()))
+data.putString('kind', 'example_segment')
+data.putBoolean('full_charge', true)
+source.setItemData('weapon', attacker.mainHandItem.copy())
 target.attack(source, 10)
 ```
 
@@ -68,11 +73,10 @@ target.attack(source, 10)
 ```js
 let source = event.source
 if (!MAADamageSources.supportsData(source)) return
-if (!source.hasCustomData()) return
 let data = source.customData
-if (data.getString('ribcage:kind') != 'example_segment') return
-let fullCharge = data.getBoolean('ribcage:full_charge')
-let weapon = $ItemStack.of(data.getCompound('ribcage:weapon'))
+if (data.getString('kind') != 'example_segment') return
+let fullCharge = data.getBoolean('full_charge')
+let weapon = source.getItemData('weapon') ?? attacker.mainHandItem
 ```
 
 复制后只改副本：
@@ -80,8 +84,10 @@ let weapon = $ItemStack.of(data.getCompound('ribcage:weapon'))
 ```js
 // source 是上方创建的 MAA 脚本来源。
 let derived = MAADamageSources.copy(source)
-derived.customData.putString('ribcage:kind', 'another_segment')
+derived.customData.putString('kind', 'another_segment')
 ```
+
+`copy` 会一并复制物品数据，并对每个 `ItemStack` 调用 `copy()`，副本可独立修改。
 
 数据包定义并在 startup 注册 `kubejs:damage_echo` 后，可以用该 ID 创建实例；
 或调用 `copyWithType(target.level, 'kubejs:damage_echo', source)` 复制已有的 MAA 脚本来源。

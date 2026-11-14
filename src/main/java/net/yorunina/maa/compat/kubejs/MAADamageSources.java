@@ -81,6 +81,7 @@ public class MAADamageSources {
         if (source.hasCustomData()) {
             result.getCustomData().merge(source.getCustomData());
         }
+        result.copyItemDataFrom(source);
         return result;
     }
 }
