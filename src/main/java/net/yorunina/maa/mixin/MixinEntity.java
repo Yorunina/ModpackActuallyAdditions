@@ -105,7 +105,7 @@ public abstract class MixinEntity implements IEntity {
     }
 
     @Inject(method = "saveWithoutId", at = @At("TAIL"))
-    private void maa$saveGlow(CompoundTag tag, CallbackInfoReturnable<Boolean> cir) {
+    private void maa$saveGlow(CompoundTag tag, CallbackInfoReturnable<CompoundTag> cir) {
         if (this.level().isClientSide) {
             return;
         }
