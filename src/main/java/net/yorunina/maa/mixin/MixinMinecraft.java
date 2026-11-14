@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinMinecraft {
     @Inject(method = "shouldEntityAppearGlowing", at = @At("RETURN"), cancellable = true)
     private void maa$planarOutline(Entity entity, CallbackInfoReturnable<Boolean> cir) {
-        // 显式描边色优先，灵视逻辑保持原样
         if (MAAGlow.getActiveRgb(entity) != 0) {
             cir.setReturnValue(true);
             return;

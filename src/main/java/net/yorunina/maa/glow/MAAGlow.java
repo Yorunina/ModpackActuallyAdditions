@@ -42,10 +42,6 @@ public final class MAAGlow {
         return end == 0 || nowSecond(entity) < end ? rgb : 0;
     }
 
-    public static int getStoredRgb(Entity entity) {
-        return entity == null ? 0 : ((IEntity) entity).getGlowRgb();
-    }
-
     private static int nowSecond(Entity entity) {
         return (int) (entity.level().getGameTime() / 20L);
     }

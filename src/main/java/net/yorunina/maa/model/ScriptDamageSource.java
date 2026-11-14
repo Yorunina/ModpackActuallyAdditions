@@ -47,8 +47,7 @@ public class ScriptDamageSource extends DamageSource implements IDamageSourceDat
     }
 
     public void copyItemDataFrom(ScriptDamageSource source) {
-        if (source.itemData == null || source.itemData.isEmpty()) return;
-        if (itemData == null) itemData = new HashMap<>();
-        source.itemData.forEach((key, stack) -> itemData.put(key, stack.copy()));
+        if (source.itemData == null) return;
+        source.itemData.forEach((key, stack) -> setItemData(key, stack.copy()));
     }
 }
