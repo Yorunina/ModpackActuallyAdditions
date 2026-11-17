@@ -320,8 +320,54 @@ public class MAAUtils {
         return level.getEntities().get(uuid);
     }
 
+    /**
+     * 在中心附近寻找一个可站立并容纳指定高度空间的落点。
+     *
+     * @param level  目标维度
+     * @param x      中心 X
+     * @param y      中心 Y
+     * @param z      中心 Z
+     * @param radius 水平搜索半径
+     * @param height 需要保留的垂直空间
+     * @return 命中的落点；找不到时返回 null
+     */
+    public BlockPos findSafeSpawnPos(ServerLevel level, double x, double y, double z, int radius, int height) {
+        BlockPos center = BlockPos.containing(x, y, z);
+        for (int distance = 0; distance <= radius; distance++) {
+            for (int dx = -distance; dx <= distance; dx++) {
+                for (int dz = -distance; dz <= distance; dz++) {
+                    if (Math.max(Math.abs(dx), Math.abs(dz)) != distance) continue;
+                    for (int dy = 0; dy <= SAFE_SPAWN_VERTICAL_RANGE; dy++) {
+                        BlockPos above = trySafeSpawnPos(level, center.offset(dx, dy, dz), height);
+                        if (above != null) return above;
+                        if (dy == 0) continue;
+                        BlockPos below = trySafeSpawnPos(level, center.offset(dx, -dy, dz), height);
+                        if (below != null) return below;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private BlockPos trySafeSpawnPos(ServerLevel level, BlockPos pos, int height) {
+        if (!level.hasChunkAt(pos)) return null;
+        BlockPos groundPos = pos.below();
+        BlockState ground = level.getBlockState(groundPos);
+        if (ground.getCollisionShape(level, groundPos).isEmpty()) return null;
+        if (!ground.getFluidState().isEmpty()) return null;
+        for (int i = 0; i < height; i++) {
+            BlockPos space = pos.above(i);
+            BlockState state = level.getBlockState(space);
+            if (!state.getCollisionShape(level, space).isEmpty()) return null;
+            if (!state.getFluidState().isEmpty()) return null;
+        }
+        return pos;
+    }
+
     private static final Set<ResourceLocation> SHADER_ENTITIES = new HashSet<>();
     private static final int ARENA_CHUNK_RADIUS = 2;
+    private static final int SAFE_SPAWN_VERTICAL_RANGE = 8;
 
     public void registerShaderEntity(String entityTypeId, String shaderName) {
         SHADER_ENTITIES.add(new ResourceLocation(entityTypeId));
