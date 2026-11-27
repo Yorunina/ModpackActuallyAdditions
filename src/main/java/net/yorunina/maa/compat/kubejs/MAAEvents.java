@@ -31,4 +31,6 @@ public class MAAEvents {
             .common("canUltimine", () -> CanUltimineEventJS.class).hasResult();
     public static EventHandler LIGHTMANS_TERMINAL_VISIBILITY = MAA_GROUP
             .common("lightmansTerminalVisibility", () -> LightmansTerminalVisibilityEventJS.class);
+    public static EventHandler ATTRIBUTES_LIB_DODGE = MAA_GROUP
+            .server("attributesLibDodge", () -> AttributesLibDodgeEventJS.class);
 }
